@@ -16,9 +16,23 @@
     .app{display:grid;grid-template-columns:280px 1fr;min-height:100dvh}.side{background:var(--surface);border-right:1px solid var(--border);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5)}.main{padding:var(--s8)}
     .brand{display:flex;gap:var(--s3);align-items:center}.mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:color-mix(in oklch,var(--primary) 15%,var(--offset));color:var(--primary)}.brand h1{font:400 var(--lg)/1 var(--display)}.brand p{font-size:var(--xs);color:var(--muted);margin-top:3px}
     .group{display:flex;flex-direction:column;gap:var(--s1)}.label{font-size:var(--xs);text-transform:uppercase;letter-spacing:.08em;color:var(--faint);padding:0 var(--s2)}.nav{display:flex;flex-direction:column;gap:var(--s1)}.nav button{display:flex;gap:var(--s3);align-items:center;padding:var(--s2) var(--s3);border-radius:var(--r1);font-size:var(--sm);color:var(--muted);transition:.18s}.nav button:hover{background:var(--offset);color:var(--text)}.nav button.active{background:var(--primaryHi);color:var(--primary);font-weight:700}
-    .panel{background:var(--offset);border:1px solid var(--border);border-radius:var(--r3);padding:var(--s4)}.field{margin-bottom:var(--s3)}.field label{display:block;font-size:var(--xs);color:var(--muted);margin-bottom:var(--s1)}.input{width:100%;padding:10px 12px;border-radius:var(--r1);border:1px solid var(--border);background:var(--surface2)}
-    .row{display:flex;gap:var(--s2);flex-wrap:wrap}.tiny{font-size:var(--xs)}.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:var(--pill);font-size:var(--sm);font-weight:600;border:1px solid var(--border);transition:var(--trans)}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn.primary:hover{background:var(--primaryHover);border-color:var(--primaryHover)}.btn:hover{background:var(--offset)}
+    /* connection pill in sidebar */
+    .conn-pill{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r2);background:var(--offset);border:1px solid var(--border);font-size:var(--xs)}.conn-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--faint);flex-shrink:0}.conn-pill .dot.ok{background:var(--success);box-shadow:0 0 0 3px var(--successHi)}.conn-pill .dot.err{background:var(--error);box-shadow:0 0 0 3px var(--errorHi)}.conn-pill .dot.busy{background:var(--warn);animation:pulse 1.1s infinite}
+    .field{margin-bottom:var(--s3)}.field label{display:block;font-size:var(--xs);color:var(--muted);margin-bottom:var(--s1)}.input{width:100%;padding:10px 12px;border-radius:var(--r1);border:1px solid var(--border);background:var(--surface2);transition:border-color var(--trans)}.input:focus{outline:none;border-color:var(--primary)}
+    .row{display:flex;gap:var(--s2);flex-wrap:wrap}.tiny{font-size:var(--xs)}.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:var(--pill);font-size:var(--sm);font-weight:600;border:1px solid var(--border);transition:var(--trans)}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn.primary:hover{background:var(--primaryHover);border-color:var(--primaryHover)}.btn:not(.primary):hover{background:var(--offset)}.btn:disabled{opacity:.45;cursor:not-allowed}
     .status{display:flex;gap:8px;align-items:center;font-size:var(--xs);color:var(--muted);margin-top:var(--s2)}.dot{width:8px;height:8px;border-radius:50%;background:var(--faint)}.dot.ok{background:var(--success);box-shadow:0 0 0 3px var(--successHi)}.dot.err{background:var(--error);box-shadow:0 0 0 3px var(--errorHi)}.dot.busy{background:var(--warn);box-shadow:0 0 0 3px var(--warnHi);animation:pulse 1.1s infinite}@keyframes pulse{50%{opacity:.45}}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:var(--pill);font-size:var(--xs);font-weight:600;background:var(--primaryHi);color:var(--primary)}
+    .saved-badge{display:none;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--pill);font-size:var(--xs);font-weight:600;background:var(--successHi);color:var(--success)}
+    /* settings screen */
+    .settings-wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:var(--s6)}
+    .settings-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);box-shadow:var(--shadow);overflow:hidden}
+    .settings-head{padding:var(--s4) var(--s5);border-bottom:1px solid var(--divider);display:flex;align-items:center;gap:var(--s3)}.settings-head h2{font-size:var(--sm);font-weight:700}.settings-head .icon{color:var(--primary)}
+    .settings-body{padding:var(--s5)}
+    .settings-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+    .hint{font-size:var(--xs);color:var(--muted);margin-top:var(--s1)}
+    .save-bar{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:1px solid var(--divider);margin-top:var(--s4)}
+    .divider-line{height:1px;background:var(--divider);margin:var(--s4) 0}
+    /* main content */
     .wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:var(--s6)}.top{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}.eyebrow{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;color:var(--primary);font-weight:700}.hero{font:400 var(--xxl)/1.05 var(--display);max-width:12ch;margin-top:var(--s2)}.lede{color:var(--muted);font-size:var(--sm);max-width:62ch;margin-top:var(--s3)}
     .tabs{display:flex;gap:var(--s2);flex-wrap:wrap}.tab{padding:8px 12px;border-radius:var(--pill);background:var(--surface);border:1px solid var(--border);font-size:var(--sm)}.tab.active{background:var(--primaryHi);border-color:var(--primary);color:var(--primary);font-weight:700}
     .screen{display:none}.screen.active{display:block}.grid{display:grid;grid-template-columns:1.5fr .9fr;gap:var(--s6)}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);box-shadow:var(--shadow)}.head{padding:var(--s4) var(--s5);border-bottom:1px solid var(--divider);display:flex;justify-content:space-between;align-items:center;gap:var(--s3)}.head h2{font-size:var(--sm);display:flex;gap:8px;align-items:center}.bodypad{padding:var(--s5)}
@@ -30,8 +44,7 @@
     .attention{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}.notice{padding:var(--s4);border-radius:var(--r2);border:1px solid var(--border);background:var(--offset)}.notice h3{font-size:var(--sm);display:flex;gap:8px;align-items:center}.notice ul{margin-top:var(--s3);display:flex;flex-direction:column;gap:8px;list-style:none}.notice li{font-size:var(--xs);color:var(--muted)}
     .coach{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}.suggest{padding:var(--s4);border:1px solid var(--border);background:var(--offset);border-radius:var(--r2)}.suggest h3{font-size:var(--sm)}.suggest p{font-size:var(--xs);color:var(--muted);margin-top:6px}.suggest .why{margin-top:10px;padding-top:10px;border-top:1px solid var(--divider);font-size:var(--xs);color:var(--faint)}
     .composer textarea{width:100%;min-height:140px;background:var(--offset);border:1px solid var(--border);border-radius:var(--r2);padding:var(--s4);resize:vertical}.empty{padding:var(--s10);text-align:center;color:var(--muted)}
-    .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:var(--pill);font-size:var(--xs);font-weight:600;background:var(--primaryHi);color:var(--primary)}
-    @media(max-width:1020px){.app{grid-template-columns:1fr}.side{border-right:none;border-bottom:1px solid var(--border)}.main{padding:var(--s4)}.grid,.attention,.coach,.metrics{grid-template-columns:1fr}.hero{max-width:15ch}}
+    @media(max-width:1020px){.app{grid-template-columns:1fr}.side{border-right:none;border-bottom:1px solid var(--border)}.main{padding:var(--s4)}.grid,.attention,.coach,.metrics,.settings-row{grid-template-columns:1fr}.hero{max-width:15ch}}
   </style>
 </head>
 <body>
@@ -48,33 +61,20 @@
         <button data-screen="why"><i data-lucide="search-check" width="15" height="15"></i> Why did this happen?</button>
         <button data-screen="attention"><i data-lucide="triangle-alert" width="15" height="15"></i> Attention center</button>
         <button data-screen="coach"><i data-lucide="sparkles" width="15" height="15"></i> Routine coach</button>
+        <button data-screen="settings"><i data-lucide="settings-2" width="15" height="15"></i> Settings</button>
       </div>
     </div>
-    <div class="panel">
-      <div class="tiny" style="font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:flex;gap:8px;align-items:center">
-        <i data-lucide="plug" width="13" height="13"></i> Home Assistant
-        <span id="haAutoNote" class="badge" style="display:none">Auto-filled</span>
-      </div>
-      <div class="field"><label for="haUrl">HA URL</label><input class="input" id="haUrl" placeholder="http://homeassistant.local:8123"></div>
-      <div class="field"><label for="haToken">Long-lived token</label><input class="input" id="haToken" type="password" placeholder="eyJhbGci…"></div>
-      <div class="row">
-        <button class="btn primary tiny" id="haConnect">Connect</button>
-        <button class="btn tiny" id="haDisconnect" style="display:none">Disconnect</button>
-      </div>
-      <div class="status"><span class="dot" id="haDot"></span><span id="haStatus">Not connected</span></div>
-    </div>
-    <div class="panel">
-      <div class="tiny" style="font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:flex;gap:8px;align-items:center"><i data-lucide="cpu" width="13" height="13"></i> Ollama LLM</div>
-      <div class="field"><label for="ollamaUrl">Ollama URL</label><input class="input" id="ollamaUrl" value="http://localhost:11434"></div>
-      <div class="field"><label for="ollamaModel">Model</label><select class="input" id="ollamaModel"><option value="">— fetch models first —</option></select></div>
-      <div class="row"><button class="btn primary tiny" id="ollamaFetch">Fetch models</button></div>
-      <div class="status"><span class="dot" id="ollamaDot"></span><span id="ollamaStatus">Not connected</span></div>
+    <!-- compact status pills -->
+    <div style="display:flex;flex-direction:column;gap:var(--s2)">
+      <div class="conn-pill"><span class="dot" id="haDotSide"></span><span id="haStatusSide">HA: not connected</span></div>
+      <div class="conn-pill"><span class="dot" id="ollamaDotSide"></span><span id="ollamaStatusSide">Ollama: not connected</span></div>
     </div>
     <div style="margin-top:auto;display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn tiny" id="themeToggle"><i data-lucide="moon" width="15" height="15"></i> Theme</button>
       <button class="btn tiny" id="refreshBtn"><i data-lucide="refresh-cw" width="15" height="15"></i> Refresh</button>
     </div>
   </aside>
+
   <main class="main">
     <div class="wrap">
       <section class="top">
@@ -92,11 +92,13 @@
           <button class="btn primary" id="generateStory"><i data-lucide="wand-sparkles" width="16" height="16"></i> Generate story</button>
         </div>
       </section>
+
+      <!-- STORY -->
       <section id="story" class="screen active">
         <div class="grid">
           <article class="card story">
             <div class="meta"><span id="storyDate">—</span><span>·</span><span id="storyEvents">No events loaded</span><span>·</span><span id="storyModel">No model</span></div>
-            <div id="storyPane"><div class="empty">Connect Home Assistant and Ollama, then hit “Generate story”.</div></div>
+            <div id="storyPane"><div class="empty">Connect Home Assistant and Ollama in <strong>Settings</strong>, then hit "Generate story".</div></div>
           </article>
           <aside style="display:flex;flex-direction:column;gap:var(--s5)">
             <section class="card"><div class="head"><h2><i data-lucide="bar-chart-3" width="14" height="14"></i> Story inputs</h2></div>
@@ -119,6 +121,8 @@
           </aside>
         </div>
       </section>
+
+      <!-- WHY -->
       <section id="why" class="screen">
         <div class="grid" style="grid-template-columns:1fr 1fr">
           <section class="card"><div class="head"><h2><i data-lucide="list-tree" width="14" height="14"></i> Recent events</h2></div>
@@ -129,6 +133,8 @@
           </section>
         </div>
       </section>
+
+      <!-- ATTENTION -->
       <section id="attention" class="screen">
         <div class="attention">
           <section class="card"><div class="head"><h2><i data-lucide="triangle-alert" width="14" height="14"></i> Issues right now</h2></div>
@@ -139,42 +145,260 @@
           </section>
         </div>
       </section>
+
+      <!-- COACH -->
       <section id="coach" class="screen">
         <div class="coach" id="coachGrid">
           <section class="card suggest"><h3>Routine coach waiting</h3><p>Connect Home Assistant to analyze recurring event sequences.</p></section>
         </div>
       </section>
+
+      <!-- SETTINGS -->
+      <section id="settings" class="screen">
+        <div class="settings-wrap">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s3)">
+            <div>
+              <div class="eyebrow">Configuration</div>
+              <div style="font:400 var(--xl)/1.1 var(--display);margin-top:4px">Settings</div>
+              <div style="color:var(--muted);font-size:var(--sm);margin-top:6px">Your credentials are saved in browser memory and restored automatically on next load.</div>
+            </div>
+            <span class="saved-badge" id="savedBadge"><i data-lucide="check" width="12" height="12"></i> Saved</span>
+          </div>
+
+          <!-- HA Settings -->
+          <div class="settings-card">
+            <div class="settings-head">
+              <span class="icon"><i data-lucide="home" width="16" height="16"></i></span>
+              <h2>Home Assistant</h2>
+              <span class="dot" id="haDot" style="margin-left:auto"></span>
+              <span id="haStatus" style="font-size:var(--xs);color:var(--muted)">Not connected</span>
+            </div>
+            <div class="settings-body">
+              <div class="settings-row">
+                <div class="field">
+                  <label for="haUrl">HA URL</label>
+                  <input class="input" id="haUrl" placeholder="http://homeassistant.local:8123" autocomplete="off">
+                  <div class="hint">Full URL including port if needed</div>
+                </div>
+                <div class="field">
+                  <label for="haToken">Long-lived access token</label>
+                  <input class="input" id="haToken" type="password" placeholder="eyJhbGci…" autocomplete="off">
+                  <div class="hint">Profile → Security → Long-lived tokens</div>
+                </div>
+              </div>
+              <div class="save-bar">
+                <button class="btn primary" id="haConnect"><i data-lucide="plug" width="15" height="15"></i> Connect</button>
+                <button class="btn" id="haDisconnect" style="display:none"><i data-lucide="plug-2" width="15" height="15"></i> Disconnect</button>
+                <button class="btn" id="haSave"><i data-lucide="save" width="15" height="15"></i> Save</button>
+                <span id="haAutoNote" class="badge" style="display:none"><i data-lucide="zap" width="11" height="11"></i> Auto-filled</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ollama Settings -->
+          <div class="settings-card">
+            <div class="settings-head">
+              <span class="icon"><i data-lucide="cpu" width="16" height="16"></i></span>
+              <h2>Ollama LLM</h2>
+              <span class="dot" id="ollamaDot" style="margin-left:auto"></span>
+              <span id="ollamaStatus" style="font-size:var(--xs);color:var(--muted)">Not connected</span>
+            </div>
+            <div class="settings-body">
+              <div class="settings-row">
+                <div class="field">
+                  <label for="ollamaUrl">Ollama URL</label>
+                  <input class="input" id="ollamaUrl" value="http://localhost:11434" autocomplete="off">
+                  <div class="hint">Default: http://localhost:11434</div>
+                </div>
+                <div class="field">
+                  <label for="ollamaModel">Model</label>
+                  <select class="input" id="ollamaModel"><option value="">— fetch models first —</option></select>
+                  <div class="hint">Run <code style="font-size:var(--xs);background:var(--offset);padding:1px 5px;border-radius:4px">OLLAMA_ORIGINS=* ollama serve</code></div>
+                </div>
+              </div>
+              <div class="save-bar">
+                <button class="btn primary" id="ollamaFetch"><i data-lucide="search" width="15" height="15"></i> Fetch models</button>
+                <button class="btn" id="ollamaSave"><i data-lucide="save" width="15" height="15"></i> Save</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme -->
+          <div class="settings-card">
+            <div class="settings-head">
+              <span class="icon"><i data-lucide="sun-moon" width="16" height="16"></i></span>
+              <h2>Appearance</h2>
+            </div>
+            <div class="settings-body">
+              <div class="field"><label>Theme</label>
+                <div class="row" style="margin-top:var(--s1)">
+                  <button class="btn" id="themeDark"><i data-lucide="moon" width="15" height="15"></i> Dark</button>
+                  <button class="btn" id="themeLight"><i data-lucide="sun" width="15" height="15"></i> Light</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- About -->
+          <div class="settings-card">
+            <div class="settings-head">
+              <span class="icon"><i data-lucide="info" width="16" height="16"></i></span>
+              <h2>About</h2>
+            </div>
+            <div class="settings-body">
+              <div style="font-size:var(--sm);color:var(--muted);line-height:1.7">
+                <strong style="color:var(--text)">Home Memory</strong> — a narrative intelligence layer for Home Assistant.<br>
+                Connects to your HA instance via WebSocket and uses a local Ollama model to narrate, explain, and coach your smart home.
+                <div style="margin-top:var(--s3);font-size:var(--xs)">Settings are stored in <code style="background:var(--offset);padding:1px 5px;border-radius:4px">hass.storage</code> when available, otherwise in session memory.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="card"><div class="head"><h2><i data-lucide="clock-3" width="14" height="14"></i> Key moments today</h2></div>
         <div class="list" id="momentsList"><div class="empty">No logbook data yet.</div></div>
       </section>
     </div>
   </main>
 </div>
+
 <script>
+// ── State ────────────────────────────────────────────────────────────────────
 let theme='dark',haWs=null,haUrl='',haToken='',msgId=1,pending={},haStates={},haLogbook=[],activeTone='warm',currentModel='',generating=false;
 const qs=s=>document.querySelector(s),qsa=s=>Array.from(document.querySelectorAll(s));
-(function tryAutoFill(){try{const h=window.parent?.hassConnection||window.parent?.hass;if(h&&h.auth){const a=h.auth,b=a.data?.hassUrl||window.location.origin,t=a.data?.access_token||a.accessToken||'';if(b)qs('#haUrl').value=b;if(t){qs('#haToken').value=t;qs('#haAutoNote').style.display='inline-flex';}if(b&&t)setTimeout(()=>qs('#haConnect').click(),600);}}catch(e){}})();
+
+// ── Persistence (hass.storage key or in-memory fallback) ─────────────────────
+const STORE_KEY='home_memory_settings';
+let _mem={};
+function storeSave(data){_mem=Object.assign(_mem,data);try{const s=window.parent?.hassStorage||window.hassStorage;if(s&&s.setItem)s.setItem(STORE_KEY,JSON.stringify(_mem));}catch(e){}}
+function storeLoad(){try{const s=window.parent?.hassStorage||window.hassStorage;if(s&&s.getItem){const v=s.getItem(STORE_KEY);if(v)_mem=JSON.parse(v);}}catch(e){}return _mem;}
+
+// Try sessionStorage as secondary (works in most HA iframes)
+function saveToSession(data){try{const cur=JSON.parse(sessionStorage.getItem(STORE_KEY)||'{}');sessionStorage.setItem(STORE_KEY,JSON.stringify(Object.assign(cur,data)));}catch(e){}}
+function loadFromSession(){try{return JSON.parse(sessionStorage.getItem(STORE_KEY)||'{}');}catch(e){return{};}}
+
+function saveSettings(data){storeSave(data);saveToSession(data);}
+function loadSettings(){const a=storeLoad(),b=loadFromSession();return Object.assign({},a,b);}
+
+// ── Boot: restore saved settings ────────────────────────────────────────────
+(function boot(){
+  const saved=loadSettings();
+  if(saved.haUrl)qs('#haUrl').value=saved.haUrl;
+  if(saved.haToken)qs('#haToken').value=saved.haToken;
+  if(saved.ollamaUrl)qs('#ollamaUrl').value=saved.ollamaUrl;
+  if(saved.theme){theme=saved.theme;document.documentElement.setAttribute('data-theme',theme);}
+  // Auto-connect if credentials saved
+  if(saved.haUrl&&saved.haToken)setTimeout(connectHA,400);
+  if(saved.ollamaUrl)setTimeout(()=>fetchModels(saved.ollamaModel),800);
+})();
+
+// ── Try HA iframe auto-fill ──────────────────────────────────────────────────
+(function tryAutoFill(){try{const h=window.parent?.hassConnection||window.parent?.hass;if(h&&h.auth){const a=h.auth,b=a.data?.hassUrl||window.location.origin,t=a.data?.access_token||a.accessToken||'';if(b&&!qs('#haUrl').value){qs('#haUrl').value=b;}if(t&&!qs('#haToken').value){qs('#haToken').value=t;qs('#haAutoNote').style.display='inline-flex';}}}catch(e){}})();
+
 lucide.createIcons();
 function iconRefresh(){lucide.createIcons();}
+
+// ── Date / greeting ──────────────────────────────────────────────────────────
 (function(){const n=new Date(),h=n.getHours();qs('#eyebrow').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+' · '+n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});qs('#storyDate').textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'})+' digest';})();
-qs('#themeToggle').onclick=()=>{theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);qs('#themeToggle').innerHTML=`<i data-lucide="${theme==='dark'?'moon':'sun'}" width="15" height="15"></i> Theme`;iconRefresh();};
+
+// ── Nav ──────────────────────────────────────────────────────────────────────
+qs('#themeToggle').onclick=applyTheme.bind(null,null);
+qs('#themeDark').onclick=()=>applyTheme('dark');
+qs('#themeLight').onclick=()=>applyTheme('light');
+function applyTheme(t){theme=t||(theme==='dark'?'light':'dark');document.documentElement.setAttribute('data-theme',theme);saveSettings({theme});const icon=theme==='dark'?'moon':'sun';qs('#themeToggle').innerHTML=`<i data-lucide="${icon}" width="15" height="15"></i> Theme`;iconRefresh();}
+
 qsa('.nav button').forEach(b=>b.onclick=()=>{qsa('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');qsa('.screen').forEach(s=>s.classList.remove('active'));qs('#'+b.dataset.screen).classList.add('active');});
 qsa('#toneTabs .tab').forEach(b=>b.onclick=()=>{qsa('#toneTabs .tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');activeTone=b.dataset.tone;});
-function setStatus(p,s,l){qs('#'+p+'Dot').className='dot'+(s?' '+s:'');qs('#'+p+'Status').textContent=l;}
-qs('#haConnect').onclick=connectHA;qs('#haDisconnect').onclick=disconnectHA;qs('#refreshBtn').onclick=()=>{if(haWs&&haWs.readyState===1)loadHA();};
-function connectHA(){haUrl=qs('#haUrl').value.trim().replace(/\/+$/,'');haToken=qs('#haToken').value.trim();if(!haUrl)return setStatus('ha','err','Enter HA URL');if(!haToken)return setStatus('ha','err','Enter token');setStatus('ha','busy','Connecting…');qs('#haConnect').disabled=true;const ws=haUrl.replace(/^https/,'wss').replace(/^http/,'ws')+'/api/websocket';try{haWs=new WebSocket(ws);}catch(e){setStatus('ha','err','Bad URL');qs('#haConnect').disabled=false;return;}const timer=setTimeout(()=>{setStatus('ha','err','Timed out');try{haWs.close()}catch(e){}qs('#haConnect').disabled=false;},12000);haWs.onmessage=raw=>{let m;try{m=JSON.parse(raw.data)}catch(e){return}if(m.type==='auth_required')haWs.send(JSON.stringify({type:'auth',access_token:haToken}));else if(m.type==='auth_ok'){clearTimeout(timer);setStatus('ha','ok','Connected');qs('#haConnect').style.display='none';qs('#haDisconnect').style.display='';qs('#haConnect').disabled=false;loadHA();}else if(m.type==='auth_invalid'){clearTimeout(timer);setStatus('ha','err','Invalid token');qs('#haConnect').disabled=false;}else if(m.type==='result'){if(pending[m.id]){pending[m.id](m);delete pending[m.id];}};};haWs.onerror=()=>{clearTimeout(timer);setStatus('ha','err','WebSocket error');qs('#haConnect').disabled=false;};haWs.onclose=()=>{if(qs('#haDot').classList.contains('ok'))setStatus('ha','err','Disconnected');};}
+
+// ── Status helpers ───────────────────────────────────────────────────────────
+function setStatus(p,s,l){
+  const dot=qs('#'+p+'Dot'),stat=qs('#'+p+'Status');
+  const sideD=qs('#'+p+'DotSide'),sideS=qs('#'+p+'StatusSide');
+  const cls='dot'+(s?' '+s:'');
+  if(dot){dot.className=cls;}
+  if(stat)stat.textContent=l;
+  if(sideD){sideD.className='dot'+(s?' '+s:'');}
+  if(sideS)sideS.textContent=(p==='ha'?'HA: ':'Ollama: ')+l;
+}
+
+// ── Save buttons ─────────────────────────────────────────────────────────────
+function flashSaved(){const b=qs('#savedBadge');b.style.display='inline-flex';iconRefresh();setTimeout(()=>b.style.display='none',2500);}
+qs('#haSave').onclick=()=>{saveSettings({haUrl:qs('#haUrl').value.trim(),haToken:qs('#haToken').value.trim()});flashSaved();};
+qs('#ollamaSave').onclick=()=>{saveSettings({ollamaUrl:qs('#ollamaUrl').value.trim(),ollamaModel:qs('#ollamaModel').value});flashSaved();};
+
+// ── HA Connection ────────────────────────────────────────────────────────────
+qs('#haConnect').onclick=connectHA;
+qs('#haDisconnect').onclick=disconnectHA;
+qs('#refreshBtn').onclick=()=>{if(haWs&&haWs.readyState===1)loadHA();};
+
+function connectHA(){
+  haUrl=qs('#haUrl').value.trim().replace(/\/+$/,'');
+  haToken=qs('#haToken').value.trim();
+  if(!haUrl)return setStatus('ha','err','Enter HA URL');
+  if(!haToken)return setStatus('ha','err','Enter token');
+  setStatus('ha','busy','Connecting…');
+  qs('#haConnect').disabled=true;
+  const ws=haUrl.replace(/^https/,'wss').replace(/^http/,'ws')+'/api/websocket';
+  try{haWs=new WebSocket(ws);}catch(e){setStatus('ha','err','Bad URL');qs('#haConnect').disabled=false;return;}
+  const timer=setTimeout(()=>{setStatus('ha','err','Timed out');try{haWs.close()}catch(e){}qs('#haConnect').disabled=false;},12000);
+  haWs.onmessage=raw=>{
+    let m;try{m=JSON.parse(raw.data)}catch(e){return}
+    if(m.type==='auth_required')haWs.send(JSON.stringify({type:'auth',access_token:haToken}));
+    else if(m.type==='auth_ok'){
+      clearTimeout(timer);
+      setStatus('ha','ok','Connected');
+      qs('#haConnect').style.display='none';qs('#haDisconnect').style.display='';
+      qs('#haConnect').disabled=false;
+      // auto-save on successful connect
+      saveSettings({haUrl,haToken});
+      loadHA();
+    }
+    else if(m.type==='auth_invalid'){clearTimeout(timer);setStatus('ha','err','Invalid token');qs('#haConnect').disabled=false;}
+    else if(m.type==='result'){if(pending[m.id]){pending[m.id](m);delete pending[m.id];}}
+  };
+  haWs.onerror=()=>{clearTimeout(timer);setStatus('ha','err','WebSocket error');qs('#haConnect').disabled=false;};
+  haWs.onclose=()=>{if(qs('#haDot')?.classList.contains('ok'))setStatus('ha','err','Disconnected');};
+}
 function disconnectHA(){try{haWs&&haWs.close()}catch(e){}haWs=null;haStates={};haLogbook=[];setStatus('ha','','Not connected');qs('#haConnect').style.display='';qs('#haDisconnect').style.display='none';resetUI();}
 function sendHA(p,cb){if(!haWs||haWs.readyState!==1)return;p.id=msgId++;if(cb)pending[p.id]=cb;haWs.send(JSON.stringify(p));}
-function loadHA(){sendHA({type:'get_states'},res=>{if(res.success){haStates={};res.result.forEach(e=>haStates[e.entity_id]=e);}});const start=new Date();start.setHours(0,0,0,0);sendHA({type:'logbook/get_events',start_time:start.toISOString(),end_time:new Date().toISOString()},res=>{if(res.success&&Array.isArray(res.result)){haLogbook=res.result;refreshAll();}else{fetch(haUrl+'/api/logbook/'+start.toISOString(),{headers:{Authorization:'Bearer '+haToken}}).then(r=>r.json()).then(d=>{haLogbook=d;refreshAll();}).catch(()=>{haLogbook=[];refreshAll();});}});}
-qs('#ollamaFetch').onclick=fetchModels;
-async function fetchModels(){const url=qs('#ollamaUrl').value.trim().replace(/\/+$/,'');setStatus('ollama','busy','Fetching models…');qs('#ollamaFetch').disabled=true;try{const r=await fetch(url+'/api/tags');if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();const models=d.models||[];qs('#ollamaModel').innerHTML=models.length?models.map(m=>`<option value="${m.name}">${m.name}</option>`).join(''):'<option value="">No models found</option>';currentModel=models[0]?.name||'';setStatus('ollama',models.length?'ok':'err',models.length?models.length+' model(s) available':'No models found');}catch(e){setStatus('ollama','err','Cannot reach Ollama — run with OLLAMA_ORIGINS=* ollama serve');}qs('#ollamaFetch').disabled=false;}
-qs('#ollamaModel').addEventListener('change',e=>currentModel=e.target.value);
+function loadHA(){
+  sendHA({type:'get_states'},res=>{if(res.success){haStates={};res.result.forEach(e=>haStates[e.entity_id]=e);}});
+  const start=new Date();start.setHours(0,0,0,0);
+  sendHA({type:'logbook/get_events',start_time:start.toISOString(),end_time:new Date().toISOString()},res=>{
+    if(res.success&&Array.isArray(res.result)){haLogbook=res.result;refreshAll();}
+    else{fetch(haUrl+'/api/logbook/'+start.toISOString(),{headers:{Authorization:'Bearer '+haToken}}).then(r=>r.json()).then(d=>{haLogbook=d;refreshAll();}).catch(()=>{haLogbook=[];refreshAll();});}
+  });
+}
+
+// ── Ollama ───────────────────────────────────────────────────────────────────
+qs('#ollamaFetch').onclick=()=>fetchModels();
+async function fetchModels(preferModel){
+  const url=qs('#ollamaUrl').value.trim().replace(/\/+$/,'');
+  setStatus('ollama','busy','Fetching models…');qs('#ollamaFetch').disabled=true;
+  try{
+    const r=await fetch(url+'/api/tags');
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();const models=d.models||[];
+    qs('#ollamaModel').innerHTML=models.length?models.map(m=>`<option value="${m.name}">${m.name}</option>`).join(''):'<option value="">No models found</option>';
+    if(preferModel){const opt=[...qs('#ollamaModel').options].find(o=>o.value===preferModel);if(opt)opt.selected=true;}
+    currentModel=qs('#ollamaModel').value;
+    setStatus('ollama',models.length?'ok':'err',models.length?models.length+' model(s) available':'No models found');
+    if(models.length)saveSettings({ollamaUrl:url,ollamaModel:currentModel});
+  }catch(e){setStatus('ollama','err','Cannot reach Ollama');}
+  qs('#ollamaFetch').disabled=false;iconRefresh();
+}
+qs('#ollamaModel').addEventListener('change',e=>{currentModel=e.target.value;saveSettings({ollamaModel:currentModel});});
+
+// ── Data helpers ─────────────────────────────────────────────────────────────
 function usableEvents(){return(haLogbook||[]).filter(e=>e.entity_id||e.name).sort((a,b)=>new Date(a.when||a.last_changed||0)-new Date(b.when||b.last_changed||0));}
 function clusterScenes(events){if(!events.length)return[];const w=30*60*1000;const out=[];let cur=[events[0]];for(let i=1;i<events.length;i++){const a=new Date(events[i-1].when||0),b=new Date(events[i].when||0);if(b-a<=w)cur.push(events[i]);else{out.push(cur);cur=[events[i]];}}out.push(cur);return out;}
 function friendly(v){return v?.attributes?.friendly_name||v?.entity_id||v?.name||'unknown';}
 function fmt(t){try{return new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}catch(e){return'—'}}
 function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function detectAnomalies(events){const out=[],map={};events.forEach(e=>{if(!e.entity_id)return;const t=new Date(e.when||e.last_changed||0).getTime();(map[e.entity_id]||(map[e.entity_id]=[])).push(t);});Object.entries(map).forEach(([id,times])=>{times.sort((a,b)=>a-b);for(let i=0;i<times.length-2;i++){if(times[i+2]-times[i]<5*60*1000){out.push({kind:'flap',title:id,desc:'Rapid changes 3+ times within 5 minutes'});break;}}});Object.values(haStates).forEach(s=>{const num=parseFloat(s.state);if(s.entity_id.includes('battery')&&!isNaN(num)&&num<20)out.push({kind:'battery',title:friendly(s),desc:'Battery low at '+num+'%'});});const unavail=Object.values(haStates).filter(s=>s.state==='unavailable');if(unavail.length)out.push({kind:'offline',title:'Unavailable entities',desc:unavail.length+' currently unavailable: '+unavail.slice(0,3).map(s=>s.entity_id).join(', ')+(unavail.length>3?'…':'')});return out.slice(0,10);}
+
+// ── Render ───────────────────────────────────────────────────────────────────
 function refreshAll(){const events=usableEvents(),scenes=clusterScenes(events),anomalies=detectAnomalies(events);qs('#mEvents').textContent=events.length;qs('#mScenes').textContent=scenes.length;qs('#mAnoms').textContent=anomalies.length;qs('#storyEvents').textContent=events.length+' events';if(events.length){const ts=events.map(e=>new Date(e.when||e.last_changed||0).getTime()).filter(Boolean);if(ts.length)qs('#mDuration').textContent=Math.max(1,Math.round((Math.max(...ts)-Math.min(...ts))/3600000))+'h';}else qs('#mDuration').textContent='—';renderThemes(events);renderMoments(scenes);renderExplain(events);renderAttention(anomalies);renderCoach(events);qs('#ctxEstimate').textContent='Context estimate: ~'+Math.round(buildPromptContext(events,scenes).length/4)+' tokens';}
 function renderThemes(events){const domains=[...new Set(events.map(e=>(e.entity_id||'').split('.')[0]).filter(Boolean))];const names={climate:'Climate',light:'Lights',automation:'Automations',binary_sensor:'Sensors',person:'Presence',device_tracker:'Tracking',media_player:'Media',switch:'Switches',cover:'Covers',lock:'Locks',sensor:'Sensors'};qs('#themeTags').innerHTML=domains.length?domains.slice(0,10).map(d=>`<span class="tag">${names[d]||d}</span>`).join(''):'<span class="tag">No data</span>';}
 function sceneTitle(scene){const d=scene.map(e=>(e.entity_id||'').split('.')[0]);if(d.includes('automation'))return'Automation burst';if(d.includes('person')||d.includes('device_tracker'))return'Presence shift';if(d.includes('climate'))return'Climate activity';if(d.includes('light'))return'Lighting scene';if(d.includes('media_player'))return'Media activity';return'Mixed activity';}
@@ -184,9 +408,12 @@ function showExplanation(ev,events){const idx=events.indexOf(ev);const neighbors
 function renderAttention(anoms){qs('#attentionList').innerHTML=anoms.length?anoms.map(a=>`<li style="font-size:var(--xs);color:var(--muted)"><strong>${esc(a.title)}</strong> — ${esc(a.desc)}</li>`).join(''):'<li style="font-size:var(--xs);color:var(--muted)">No current issues detected.</li>';const events=usableEvents(),p=[],byHour={};events.forEach(e=>{const d=new Date(e.when||e.last_changed||0);const h=d.getHours();byHour[h]=(byHour[h]||0)+1;});Object.entries(byHour).sort((a,b)=>b[1]-a[1]).slice(0,3).forEach(([h,c])=>p.push(`${c} events clustered around ${h}:00`));const flap=anoms.find(a=>a.kind==='flap');if(flap)p.unshift('Repeated rapid changes may indicate a noisy entity: '+flap.title);qs('#patternList').innerHTML=p.length?p.map(x=>`<li style="font-size:var(--xs);color:var(--muted)">${esc(x)}</li>`).join(''):'<li style="font-size:var(--xs);color:var(--muted)">No unusual patterns detected.</li>';}
 function renderCoach(events){if(!events.length){qs('#coachGrid').innerHTML='<section class="card suggest"><h3>Routine coach waiting</h3><p>Connect Home Assistant to analyze patterns.</p></section>';return;}const buckets={};events.forEach(e=>{const d=new Date(e.when||e.last_changed||0),hour=d.getHours(),domain=(e.entity_id||'').split('.')[0]||'unknown';const key=hour+'-'+domain;buckets[key]=(buckets[key]||0)+1;});const top=Object.entries(buckets).sort((a,b)=>b[1]-a[1]).slice(0,4);const suggestions=top.map(([k,count])=>{const[hour,domain]=k.split('-');let suggestion='';if(domain==='light')suggestion=`Around ${hour}:00, lighting events happen often. Consider an occupancy-based or scheduled scene.`;else if(domain==='climate')suggestion=`Climate activity repeats near ${hour}:00. Consider pre-heating or eco mode triggered by presence.`;else if(domain==='person'||domain==='device_tracker')suggestion=`Presence changes cluster near ${hour}:00. Consider arrival/departure automations.`;else if(domain==='media_player')suggestion=`Media often starts near ${hour}:00. Consider auto-dimming lights at playback start.`;else suggestion=`${domain} events repeat near ${hour}:00. Consider grouping into a single automation.`;return{title:domain.charAt(0).toUpperCase()+domain.slice(1)+' pattern',body:suggestion,why:`Seen ${count} time${count!==1?'s':''} today.`};});qs('#coachGrid').innerHTML=suggestions.map(s=>`<section class="card suggest"><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p><div class="why">${esc(s.why)}</div></section>`).join('');}
 function buildPromptContext(events,scenes){const tone={warm:'Tone: warm, calm, and observant.',concise:'Tone: concise and factual, no filler.',technical:'Tone: clinical and precise, include entity names.'}[activeTone]||'';const lines=events.slice(0,120).map(e=>`[${fmt(e.when||e.last_changed)}] ${friendly(e)}: ${e.message||e.state||'changed'}`).join('\n');const an=detectAnomalies(events);const anTxt=an.length?'\nAnomalies noted:\n'+an.map(a=>'- '+a.title+': '+a.desc).join('\n'):'';return qs('#promptBox').value.trim()+'\n\n'+tone+'\n\nHome Assistant events for today:\n'+lines+anTxt;}
-async function generateStory(){if(generating)return;currentModel=qs('#ollamaModel').value;if(!currentModel){alert('Connect Ollama and choose a model first.');return;}const events=usableEvents(),scenes=clusterScenes(events),prompt=buildPromptContext(events,scenes);generating=true;qs('#generateStory').disabled=true;qs('#generateStory').innerHTML='<i data-lucide="loader-circle" width="16" height="16"></i> Generating…';iconRefresh();qs('#storyModel').textContent=currentModel;qs('#storyPane').innerHTML='<div class="title" id="storyTitle">Writing your story…</div><div class="storyout" id="storyOut"></div><div class="quote" id="storyQuote" style="display:none"></div>';try{const r=await fetch(qs('#ollamaUrl').value.trim().replace(/\/+$/,'')+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:currentModel,prompt,stream:true})});if(!r.ok)throw new Error('HTTP '+r.status);const reader=r.body.getReader(),dec=new TextDecoder();let full='';while(true){const{done,value}=await reader.read();if(done)break;for(const line of dec.decode(value,{stream:true}).split('\n').filter(Boolean)){try{const j=JSON.parse(line);if(j.response){full+=j.response;qs('#storyOut').textContent=full+'▮';}}catch(e){}}}qs('#storyOut').textContent=full;const s=full.trim().split(/[.!?]+/).map(x=>x.trim()).filter(Boolean);qs('#storyTitle').textContent=s[0]||'Today at home';qs('#storyQuote').style.display='';qs('#storyQuote').textContent='"'+(s[s.length-1]||'A steady day at home')+'.'+'"';}catch(e){qs('#storyPane').innerHTML=`<div class="empty"><strong>Could not reach Ollama.</strong><br><span class="tiny" style="color:var(--muted)">Make sure Ollama is running with <code>OLLAMA_ORIGINS=* ollama serve</code></span></div>`;}generating=false;qs('#generateStory').disabled=false;qs('#generateStory').innerHTML='<i data-lucide="wand-sparkles" width="16" height="16"></i> Regenerate';iconRefresh();}
+
+// ── Generate story ────────────────────────────────────────────────────────────
+async function generateStory(){if(generating)return;currentModel=qs('#ollamaModel').value;if(!currentModel){alert('Open Settings → Ollama and fetch models first.');return;}const events=usableEvents(),scenes=clusterScenes(events),prompt=buildPromptContext(events,scenes);generating=true;qs('#generateStory').disabled=true;qs('#generateStory').innerHTML='<i data-lucide="loader-circle" width="16" height="16"></i> Generating…';iconRefresh();qs('#storyModel').textContent=currentModel;qs('#storyPane').innerHTML='<div class="title" id="storyTitle">Writing your story…</div><div class="storyout" id="storyOut"></div><div class="quote" id="storyQuote" style="display:none"></div>';try{const r=await fetch(qs('#ollamaUrl').value.trim().replace(/\/+$/,'')+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:currentModel,prompt,stream:true})});if(!r.ok)throw new Error('HTTP '+r.status);const reader=r.body.getReader(),dec=new TextDecoder();let full='';while(true){const{done,value}=await reader.read();if(done)break;for(const line of dec.decode(value,{stream:true}).split('\n').filter(Boolean)){try{const j=JSON.parse(line);if(j.response){full+=j.response;qs('#storyOut').textContent=full+'▮';}}catch(e){}}}qs('#storyOut').textContent=full;const s=full.trim().split(/[.!?]+/).map(x=>x.trim()).filter(Boolean);qs('#storyTitle').textContent=s[0]||'Today at home';qs('#storyQuote').style.display='';qs('#storyQuote').textContent='"'+(s[s.length-1]||'A steady day at home')+'."';}catch(e){qs('#storyPane').innerHTML=`<div class="empty"><strong>Could not reach Ollama.</strong><br><span class="tiny" style="color:var(--muted)">Make sure Ollama is running with <code>OLLAMA_ORIGINS=* ollama serve</code> and check Settings.</span></div>`;}generating=false;qs('#generateStory').disabled=false;qs('#generateStory').innerHTML='<i data-lucide="wand-sparkles" width="16" height="16"></i> Regenerate';iconRefresh();}
 qs('#generateStory').onclick=generateStory;
-function resetUI(){['#mEvents','#mScenes','#mAnoms','#mDuration'].forEach(id=>qs(id).textContent='—');qs('#themeTags').innerHTML='<span class="tag">Waiting…</span>';qs('#momentsList').innerHTML='<div class="empty">No logbook data yet.</div>';qs('#expList').innerHTML='<div class="empty">No events yet.</div>';qs('#expDetail').textContent='Pick an event on the left to inspect why it happened.';qs('#attentionList').innerHTML='<li style="font-size:var(--xs);color:var(--muted)">Connect HA to load live issues.</li>';qs('#patternList').innerHTML='<li style="font-size:var(--xs);color:var(--muted)">No patterns calculated yet.</li>';qs('#coachGrid').innerHTML='<section class="card suggest"><h3>Routine coach waiting</h3><p>Connect Home Assistant to analyze patterns.</p></section>';qs('#storyEvents').textContent='No events loaded';qs('#ctxEstimate').textContent='Context estimate: —';qs('#haAutoNote').style.display='none';}
+
+function resetUI(){['#mEvents','#mScenes','#mAnoms','#mDuration'].forEach(id=>qs(id).textContent='—');qs('#themeTags').innerHTML='<span class="tag">Waiting…</span>';qs('#momentsList').innerHTML='<div class="empty">No logbook data yet.</div>';qs('#expList').innerHTML='<div class="empty">No events yet.</div>';qs('#expDetail').textContent='Pick an event on the left to inspect why it happened.';qs('#attentionList').innerHTML='<li style="font-size:var(--muted);font-size:var(--xs)">Connect HA to load live issues.</li>';qs('#patternList').innerHTML='<li style="font-size:var(--xs);color:var(--muted)">No patterns calculated yet.</li>';qs('#coachGrid').innerHTML='<section class="card suggest"><h3>Routine coach waiting</h3><p>Connect Home Assistant to analyze patterns.</p></section>';qs('#storyEvents').textContent='No events loaded';qs('#ctxEstimate').textContent='Context estimate: —';}
 </script>
 </body>
 </html>
