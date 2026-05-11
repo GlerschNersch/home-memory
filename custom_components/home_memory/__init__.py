@@ -10,6 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 DOMAIN = "home_memory"
 PANEL_URL_PATH = "home-memory"
 STATIC_URL = "/home_memory_static"
+DATA_STATIC_REGISTERED = f"{DOMAIN}_static_registered"
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
@@ -18,9 +19,7 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     try:
-        from homeassistant.components.frontend import (
-            async_register_built_in_panel,
-        )
+        from homeassistant.components.frontend import async_register_built_in_panel
     except ImportError as err:
         _LOGGER.error("Home Memory: could not import frontend module: %s", err)
         return False
@@ -46,22 +45,26 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 "Copy index.html to /config/www/home-memory/index.html and reload."
             )
 
-    # Register static path (guard against duplicate registration on reload)
-    try:
-        from homeassistant.components.http import StaticPathConfig
-        await hass.http.async_register_static_paths([
-            StaticPathConfig(
-                url_path=STATIC_URL,
-                path=str(frontend_path),
-                cache_headers=False,
-            )
-        ])
-    except RuntimeError as err:
-        # Already registered — safe to continue
-        _LOGGER.debug("Home Memory: static path already registered: %s", err)
-    except Exception as err:  # noqa: BLE001
-        _LOGGER.error("Home Memory: failed to register static path: %s", err)
-        return False
+    # Only register the static path once per HA lifetime.
+    # aiohttp raises RuntimeError if the same GET route is added twice,
+    # and it fires before our try/except can catch it.
+    if not hass.data.get(DATA_STATIC_REGISTERED):
+        try:
+            from homeassistant.components.http import StaticPathConfig
+            await hass.http.async_register_static_paths([
+                StaticPathConfig(
+                    url_path=STATIC_URL,
+                    path=str(frontend_path),
+                    cache_headers=False,
+                )
+            ])
+            hass.data[DATA_STATIC_REGISTERED] = True
+            _LOGGER.debug("Home Memory: static path registered at %s", STATIC_URL)
+        except Exception as err:  # noqa: BLE001
+            _LOGGER.error("Home Memory: failed to register static path: %s", err)
+            return False
+    else:
+        _LOGGER.debug("Home Memory: static path already registered, skipping")
 
     # Register sidebar panel
     try:
@@ -88,4 +91,6 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         async_remove_panel(hass, PANEL_URL_PATH)
     except Exception as err:  # noqa: BLE001
         _LOGGER.warning("Home Memory: could not remove panel on unload: %s", err)
+    # Note: static paths cannot be unregistered from aiohttp at runtime.
+    # The DATA_STATIC_REGISTERED flag persists so reloads skip re-registration.
     return True
