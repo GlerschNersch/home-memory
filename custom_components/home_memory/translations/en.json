@@ -1,0 +1,16 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Home Memory",
+        "description": "Add the Home Memory AI digest panel to your sidebar."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Home Memory is already configured."
+    },
+    "create_entry": {
+      "default": "Home Memory panel added successfully."
+    }
+  }
+}
