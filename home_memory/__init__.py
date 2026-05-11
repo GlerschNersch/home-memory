@@ -4,12 +4,25 @@ from pathlib import Path
 
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.components.http import StaticPathConfig
+from homeassistant.components.http import HomeAssistantView
 from homeassistant.components.frontend import async_register_built_in_panel, async_remove_panel
 
 _LOGGER = logging.getLogger(__name__)
 DOMAIN = "home_memory"
-PANEL_FILENAME = "home-memory-panel.html"
+
+
+class HomePanelView(HomeAssistantView):
+    """Serve the Home Memory panel HTML directly."""
+    url = "/home_memory_panel"
+    name = "home_memory_panel"
+    requires_auth = False
+
+    def __init__(self, html: str):
+        self._html = html
+
+    async def get(self, request):
+        from aiohttp.web import Response
+        return Response(text=self._html, content_type="text/html")
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
@@ -17,15 +30,10 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    frontend_path = Path(__file__).parent / "frontend"
+    panel_path = Path(__file__).parent / "frontend" / "home-memory-panel.html"
+    html = await hass.async_add_executor_job(panel_path.read_text, "utf-8")
 
-    await hass.http.async_register_static_paths([
-        StaticPathConfig(
-            url_path="/home_memory_static",
-            path=str(frontend_path),
-            cache_headers=False,
-        )
-    ])
+    hass.http.register_view(HomePanelView(html))
 
     async_register_built_in_panel(
         hass,
@@ -33,11 +41,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         sidebar_title="Home Memory",
         sidebar_icon="mdi:brain",
         frontend_url_path="home-memory",
-        config={"url": "/home_memory_static/home-memory-panel.html"},
+        config={"url": "/home_memory_panel"},
         require_admin=False,
     )
 
-    _LOGGER.info("Home Memory: panel registered at /home_memory_static/%s", PANEL_FILENAME)
+    _LOGGER.info("Home Memory: panel served at /home_memory_panel")
     return True
 
 
