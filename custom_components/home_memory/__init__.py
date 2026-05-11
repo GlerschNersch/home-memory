@@ -5,8 +5,6 @@ from pathlib import Path
 
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.components.frontend import async_register_built_in_panel, async_remove_panel
-from homeassistant.components.http import StaticPathConfig
 
 _LOGGER = logging.getLogger(__name__)
 DOMAIN = "home_memory"
@@ -19,53 +17,75 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    # The frontend folder sits next to this __init__.py
-    frontend_path = Path(__file__).parent / "frontend"
-    frontend_path.mkdir(exist_ok=True)
+    try:
+        from homeassistant.components.frontend import (
+            async_register_built_in_panel,
+        )
+    except ImportError as err:
+        _LOGGER.error("Home Memory: could not import frontend module: %s", err)
+        return False
 
-    # If the panel HTML hasn't been copied yet, copy index.html from the repo root www
-    # (fallback: use the bundled panel.html if present)
+    # Ensure frontend directory exists
+    frontend_path = Path(__file__).parent / "frontend"
+    frontend_path.mkdir(parents=True, exist_ok=True)
+
+    # Copy panel HTML if not already present
     panel_file = frontend_path / "panel.html"
     if not panel_file.exists():
-        # Try to copy from /config/www/home-memory/ if the user placed it there
         www_source = Path(hass.config.config_dir) / "www" / "home-memory" / "index.html"
         repo_source = Path(__file__).parent.parent.parent / "index.html"
         if www_source.exists():
             shutil.copy2(www_source, panel_file)
-            _LOGGER.info("Home Memory: copied panel from www/home-memory/index.html")
+            _LOGGER.info("Home Memory: copied panel from %s", www_source)
         elif repo_source.exists():
             shutil.copy2(repo_source, panel_file)
-            _LOGGER.info("Home Memory: copied panel from repo root index.html")
+            _LOGGER.info("Home Memory: copied panel from %s", repo_source)
         else:
             _LOGGER.warning(
-                "Home Memory: panel.html not found in frontend/. "
-                "Place index.html at /config/www/home-memory/index.html and reload."
+                "Home Memory: no panel HTML found. "
+                "Copy index.html to /config/www/home-memory/index.html and reload."
             )
 
-    # Register the static path so HA serves the files
-    await hass.http.async_register_static_paths([
-        StaticPathConfig(
-            url_path=STATIC_URL,
-            path=str(frontend_path),
-            cache_headers=False,
+    # Register static path (guard against duplicate registration on reload)
+    try:
+        from homeassistant.components.http import StaticPathConfig
+        await hass.http.async_register_static_paths([
+            StaticPathConfig(
+                url_path=STATIC_URL,
+                path=str(frontend_path),
+                cache_headers=False,
+            )
+        ])
+    except RuntimeError as err:
+        # Already registered — safe to continue
+        _LOGGER.debug("Home Memory: static path already registered: %s", err)
+    except Exception as err:  # noqa: BLE001
+        _LOGGER.error("Home Memory: failed to register static path: %s", err)
+        return False
+
+    # Register sidebar panel
+    try:
+        async_register_built_in_panel(
+            hass,
+            component_name="iframe",
+            sidebar_title="Home Memory",
+            sidebar_icon="mdi:brain",
+            frontend_url_path=PANEL_URL_PATH,
+            config={"url": f"{STATIC_URL}/panel.html"},
+            require_admin=False,
         )
-    ])
+    except Exception as err:  # noqa: BLE001
+        _LOGGER.error("Home Memory: failed to register panel: %s", err)
+        return False
 
-    # Register the sidebar panel using the modern API
-    async_register_built_in_panel(
-        hass,
-        component_name="iframe",
-        sidebar_title="Home Memory",
-        sidebar_icon="mdi:brain",
-        frontend_url_path=PANEL_URL_PATH,
-        config={"url": f"{STATIC_URL}/panel.html"},
-        require_admin=False,
-    )
-
-    _LOGGER.info("Home Memory panel registered at /%s", PANEL_URL_PATH)
+    _LOGGER.info("Home Memory panel registered successfully")
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    async_remove_panel(hass, PANEL_URL_PATH)
+    try:
+        from homeassistant.components.frontend import async_remove_panel
+        async_remove_panel(hass, PANEL_URL_PATH)
+    except Exception as err:  # noqa: BLE001
+        _LOGGER.warning("Home Memory: could not remove panel on unload: %s", err)
     return True
