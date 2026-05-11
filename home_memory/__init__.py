@@ -5,13 +5,16 @@ from pathlib import Path
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.components.http import StaticPathConfig
+from homeassistant.components import frontend
 
 _LOGGER = logging.getLogger(__name__)
 DOMAIN = "home_memory"
 PANEL_FILENAME = "home-memory-panel.html"
 
+
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     return True
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     frontend_path = Path(__file__).parent / "frontend"
@@ -24,7 +27,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         )
     ])
 
-    hass.components.frontend.async_register_built_in_panel(
+    frontend.async_register_built_in_panel(
+        hass,
         component_name="iframe",
         sidebar_title="Home Memory",
         sidebar_icon="mdi:brain",
@@ -33,9 +37,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         require_admin=False,
     )
 
-    _LOGGER.info("Home Memory panel registered")
+    _LOGGER.info("Home Memory panel registered at /home_memory_static/%s", PANEL_FILENAME)
     return True
 
+
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    hass.components.frontend.async_remove_panel("home-memory")
+    frontend.async_remove_panel(hass, "home-memory")
     return True

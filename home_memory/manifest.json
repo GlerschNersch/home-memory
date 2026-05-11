@@ -1,7 +1,7 @@
 {
   "domain": "home_memory",
   "name": "Home Memory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "documentation": "https://github.com/GlerschNersch/home-memory",
   "issue_tracker": "https://github.com/GlerschNersch/home-memory/issues",
   "codeowners": ["@GlerschNersch"],
