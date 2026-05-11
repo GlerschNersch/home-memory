@@ -1,92 +1,102 @@
 # 🏠 Home Memory
 
-**Home Memory** is a smart home intelligence dashboard that explains what your house is doing, why automations fired, and what needs attention — built as a companion layer on top of [Home Assistant](https://www.home-assistant.io/).
+> A plain-English smart home intelligence dashboard for Home Assistant.
 
-![Home Memory Dashboard](https://img.shields.io/badge/status-prototype-teal) ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-compatible-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+Home Memory turns your Home Assistant logbook, entity states, and automations into a readable, human-friendly briefing. Instead of raw state changes, you see *why* things happened, what needs attention, and what patterns suggest new automations.
+
+![Dark mode dashboard](https://via.placeholder.com/900x500/1a1917/4f98a3?text=Home+Memory+Dashboard)
 
 ---
 
 ## ✨ Features
 
-- **🕒 Home Timeline** — Plain-English feed of every automation, alert, and device event. Tap any event to see *why* it happened.
-- **🔔 Attention Center** — Critical alerts: low batteries, offline devices, unusual temperatures, available updates.
-- **🏘️ Room Snapshot** — At-a-glance view of every room: temperature, occupancy, active devices.
-- **⚡ Routine Coach** — Detects your behavioral patterns and suggests new automations with confidence scores.
-- **📊 KPI Strip** — Daily stats: automations fired, average indoor temp, doors opened, energy saved.
-- **🌙 Dark / Light mode** — System preference + manual toggle.
-- **📱 Mobile responsive** — Works on phones and tablets.
+- **Live Timeline** — plain-English event feed pulled from the HA logbook, updating in real-time via WebSocket
+- **Attention Center** — low battery alerts, unavailable devices, open doors/windows, high CO₂
+- **Room Snapshot** — live temperature, motion, and light state per room (uses HA area assignments)
+- **Routine Coach** — pattern-based automation suggestions (currently demo data, ML layer coming in v0.4)
+- **Live KPIs** — avg indoor temp, open doors/windows, entity online count
+- **Dark + Light mode** toggle
+- **Zero server needed** — pure static HTML, connects directly to HA via WebSocket
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Quick Setup (Recommended)
 
-### Option 1: Open Directly
+### Option A — HA Sidebar Panel (best experience)
 
-Just open `index.html` in your browser. No build step or server needed.
+1. **Copy the file** into your HA config directory:
+   ```
+   /config/www/home-memory/index.html
+   ```
+   If the `www/home-memory/` folder doesn't exist, create it.
 
-### Option 2: Serve Locally
+2. **Add to `configuration.yaml`** (see [`configuration.yaml`](./configuration.yaml) in this repo for the exact snippet):
+   ```yaml
+   panel_custom:
+     - name: home-memory
+       sidebar_title: Home Memory
+       sidebar_icon: mdi:home-heart
+       url_path: home-memory
+       config:
+         url: /local/home-memory/index.html
+   ```
 
-```bash
-# Python
-python3 -m http.server 8080
+3. **Restart Home Assistant** — Settings → System → Restart
 
-# Node
-npx serve .
+4. **Open Home Memory** from the sidebar and click **"Not connected"** to enter your credentials.
+
+### Option B — Open directly in browser
+
+Just open `index.html` in any browser and click **"Not connected"** to connect.
+
+---
+
+## 🔑 Getting a Long-Lived Access Token
+
+1. In Home Assistant, click your **profile avatar** (bottom-left)
+2. Scroll to **Long-Lived Access Tokens**
+3. Click **Create Token**, name it `home-memory`
+4. Copy it — HA only shows it once!
+5. Paste it into the Home Memory connect modal
+
+> **Security note:** Your token is stored only in browser memory for the session. It is never written to any file or committed to this repo.
+
+---
+
+## 🏗 Architecture
+
+```
+Browser / HA Panel
+  └── index.html
+        ├── WebSocket → ws://your-ha:8123/api/websocket
+        │     ├── Auth via Long-Lived Token
+        │     ├── get_states          → KPIs, Room Snapshot, Attention Center
+        │     ├── logbook/get_events  → Timeline (today's events)
+        │     └── subscribe_events    → Live real-time updates
+        └── REST fallback → /api/logbook/ (if WS logbook unavailable)
 ```
 
-Then open `http://localhost:8080`.
-
 ---
 
-## 🔌 Connecting to Home Assistant
-
-1. Open the app and click **Connect HA** (sidebar) or the ⚙️ settings icon.
-2. Enter your Home Assistant URL (e.g. `http://homeassistant.local:8123`).
-3. Paste a **Long-Lived Access Token** from your HA profile page.
-
-> **Note:** The current version is a UI prototype with demo data. Full HA WebSocket API integration is planned for v0.2.
-
----
-
-## 🗺️ Roadmap
+## 🗺 Roadmap
 
 | Version | Feature |
-|---------|----------|
-| v0.1 | ✅ UI prototype with demo data |
-| v0.2 | 🔄 Live HA WebSocket API connection |
-| v0.3 | 🔄 Real timeline from logbook + automations |
-| v0.4 | 🔄 Routine Coach ML pattern detection |
-| v0.5 | 🔄 Custom Home Assistant panel / add-on |
+|---------|--------|
+| **v0.1** ✅ | Static demo dashboard |
+| **v0.2** ✅ | Live WebSocket connection, real entity states, logbook timeline |
+| **v0.3** | HA area-aware room layout, automation trigger details |
+| **v0.4** | Pattern detection for Routine Coach (real data) |
+| **v0.5** | HACS-installable integration package |
+| **v0.6** | Mobile companion (PWA) |
 
 ---
 
-## 🛠️ Tech Stack
+## 🤝 Contributing
 
-- Vanilla HTML / CSS / JavaScript (no framework)
-- [Lucide Icons](https://lucide.dev/)
-- [Google Fonts](https://fonts.google.com/) — Inter + Instrument Serif
-- Designed to integrate with the [Home Assistant REST & WebSocket APIs](https://developers.home-assistant.io/docs/api/rest/)
-
----
-
-## 📁 Project Structure
-
-```
-home-memory/
-├── index.html       # Main app (self-contained)
-└── README.md        # This file
-```
+PRs welcome! Please open an issue first for major changes.
 
 ---
 
 ## 📄 License
 
-MIT — free to use, modify, and integrate with your Home Assistant setup.
-
----
-
-## 💬 Contributing
-
-Ideas, issues, and PRs welcome! This project is built for the Home Assistant community.
-
-Open an issue to discuss features or share your HA setup.
+MIT

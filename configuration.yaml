@@ -1,0 +1,28 @@
+# ─────────────────────────────────────────────────────────────
+# Home Memory — Home Assistant Panel Configuration
+# ─────────────────────────────────────────────────────────────
+#
+# SETUP STEPS:
+#
+# 1. Copy index.html into your HA config directory:
+#      /config/www/home-memory/index.html
+#
+# 2. Add the section below to your configuration.yaml
+#    (merge into existing panel_custom: if you already have one)
+#
+# 3. Restart Home Assistant (Settings → System → Restart)
+#
+# 4. Home Memory will appear in your sidebar as "Home Memory"
+#
+# 5. Click "Not connected" in the app to enter your
+#    Long-Lived Access Token — get one from your HA Profile page.
+#
+# ─────────────────────────────────────────────────────────────
+
+panel_custom:
+  - name: home-memory
+    sidebar_title: Home Memory
+    sidebar_icon: mdi:home-heart
+    url_path: home-memory
+    config:
+      url: /local/home-memory/index.html

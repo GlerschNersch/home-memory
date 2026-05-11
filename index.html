@@ -9,124 +9,81 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <style>
-    /* === DESIGN TOKENS === */
     :root, [data-theme="light"] {
-      --color-bg: #f7f6f2;
-      --color-surface: #f9f8f5;
-      --color-surface-2: #fbfbf9;
-      --color-surface-offset: #f3f0ec;
-      --color-surface-dynamic: #e6e4df;
-      --color-divider: #dcd9d5;
-      --color-border: #d4d1ca;
-      --color-text: #28251d;
-      --color-text-muted: #7a7974;
-      --color-text-faint: #bab9b4;
-      --color-text-inverse: #f9f8f4;
-      --color-primary: #01696f;
-      --color-primary-hover: #0c4e54;
-      --color-primary-highlight: #cedcd8;
-      --color-warning: #964219;
-      --color-warning-highlight: #ddcfc6;
-      --color-error: #a12c7b;
-      --color-error-highlight: #e0ced7;
-      --color-success: #437a22;
-      --color-success-highlight: #d4dfcc;
-      --color-orange: #da7101;
-      --color-orange-highlight: #e7d7c4;
-      --color-blue: #006494;
-      --color-blue-highlight: #c6d8e4;
-      --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06);
-      --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08);
-      --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.12);
-      --radius-sm: 0.375rem;
-      --radius-md: 0.5rem;
-      --radius-lg: 0.75rem;
-      --radius-xl: 1rem;
-      --radius-full: 9999px;
-      --font-body: 'Inter', sans-serif;
-      --font-display: 'Instrument Serif', Georgia, serif;
-      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9;
+      --color-surface-offset: #f3f0ec; --color-surface-dynamic: #e6e4df;
+      --color-divider: #dcd9d5; --color-border: #d4d1ca;
+      --color-text: #28251d; --color-text-muted: #7a7974; --color-text-faint: #bab9b4; --color-text-inverse: #f9f8f4;
+      --color-primary: #01696f; --color-primary-hover: #0c4e54; --color-primary-highlight: #cedcd8;
+      --color-warning: #964219; --color-warning-highlight: #ddcfc6;
+      --color-error: #a12c7b; --color-error-highlight: #e0ced7;
+      --color-success: #437a22; --color-success-highlight: #d4dfcc;
+      --color-orange: #da7101; --color-orange-highlight: #e7d7c4;
+      --color-blue: #006494; --color-blue-highlight: #c6d8e4;
+      --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06); --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08); --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.12);
+      --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem; --radius-xl: 1rem; --radius-full: 9999px;
+      --font-body: 'Inter', sans-serif; --font-display: 'Instrument Serif', Georgia, serif;
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
       --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
-      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-      --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
-      --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
-      --space-16: 4rem; --space-20: 5rem;
-      --content-default: 1100px;
-      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+      --content-default: 1100px; --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
     }
     [data-theme="dark"] {
-      --color-bg: #121210;
-      --color-surface: #1a1917;
-      --color-surface-2: #1f1e1c;
-      --color-surface-offset: #242320;
-      --color-surface-dynamic: #2d2c2a;
-      --color-divider: #2a2926;
-      --color-border: #353330;
-      --color-text: #d4d3d0;
-      --color-text-muted: #7a7876;
-      --color-text-faint: #4e4d4b;
-      --color-text-inverse: #1a1917;
-      --color-primary: #4f98a3;
-      --color-primary-hover: #227f8b;
-      --color-primary-highlight: #1e3033;
-      --color-warning: #bb653b;
-      --color-warning-highlight: #3a2a20;
-      --color-error: #d163a7;
-      --color-error-highlight: #32202d;
-      --color-success: #6daa45;
-      --color-success-highlight: #1e2d18;
-      --color-orange: #fdab43;
-      --color-orange-highlight: #352710;
-      --color-blue: #5591c7;
-      --color-blue-highlight: #1a2a38;
-      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.25);
-      --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
-      --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.45);
+      --color-bg: #121210; --color-surface: #1a1917; --color-surface-2: #1f1e1c;
+      --color-surface-offset: #242320; --color-surface-dynamic: #2d2c2a;
+      --color-divider: #2a2926; --color-border: #353330;
+      --color-text: #d4d3d0; --color-text-muted: #7a7876; --color-text-faint: #4e4d4b; --color-text-inverse: #1a1917;
+      --color-primary: #4f98a3; --color-primary-hover: #227f8b; --color-primary-highlight: #1e3033;
+      --color-warning: #bb653b; --color-warning-highlight: #3a2a20;
+      --color-error: #d163a7; --color-error-highlight: #32202d;
+      --color-success: #6daa45; --color-success-highlight: #1e2d18;
+      --color-orange: #fdab43; --color-orange-highlight: #352710;
+      --color-blue: #5591c7; --color-blue-highlight: #1a2a38;
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.25); --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35); --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.45);
     }
-
-    /* === BASE === */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
     body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); display: flex; flex-direction: column; transition: background var(--transition), color var(--transition); }
-    img { display: block; max-width: 100%; }
     button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
     :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
     a { color: inherit; text-decoration: none; }
+    input, select { font: inherit; }
 
-    /* === LAYOUT === */
+    /* LAYOUT */
     .app { display: grid; grid-template-columns: 240px 1fr; grid-template-rows: auto 1fr; min-height: 100dvh; }
     .topbar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-6); border-bottom: 1px solid var(--color-border); background: var(--color-surface); position: sticky; top: 0; z-index: 100; gap: var(--space-4); }
     .sidebar { grid-row: 2; background: var(--color-surface); border-right: 1px solid var(--color-border); padding: var(--space-6) 0; display: flex; flex-direction: column; gap: var(--space-1); position: sticky; top: 57px; height: calc(100dvh - 57px); overflow-y: auto; }
-    .main { grid-row: 2; padding: var(--space-8) var(--space-8); overflow-y: auto; }
+    .main { grid-row: 2; padding: var(--space-8); overflow-y: auto; }
 
-    /* === TOPBAR === */
+    /* TOPBAR */
     .logo { display: flex; align-items: center; gap: var(--space-3); }
     .logo-mark { width: 32px; height: 32px; }
     .logo-text { font-family: var(--font-display); font-size: var(--text-lg); line-height: 1; }
     .logo-text span { color: var(--color-primary); }
     .topbar-right { display: flex; align-items: center; gap: var(--space-3); }
-    .ha-status { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--color-text-muted); background: var(--color-surface-offset); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); border: 1px solid var(--color-border); }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-success); box-shadow: 0 0 0 2px var(--color-success-highlight); flex-shrink: 0; }
+    .ha-status { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--color-text-muted); background: var(--color-surface-offset); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); border: 1px solid var(--color-border); cursor: pointer; transition: background var(--transition); }
+    .ha-status:hover { background: var(--color-surface-dynamic); }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-text-faint); flex-shrink: 0; transition: background var(--transition); }
+    .status-dot.connected { background: var(--color-success); box-shadow: 0 0 0 2px var(--color-success-highlight); }
+    .status-dot.connecting { background: var(--color-orange); animation: pulse 1.2s ease-in-out infinite; }
+    .status-dot.error { background: var(--color-error); }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
     .icon-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--radius-md); color: var(--color-text-muted); transition: background var(--transition), color var(--transition); }
     .icon-btn:hover { background: var(--color-surface-offset); color: var(--color-text); }
 
-    /* === SIDEBAR === */
+    /* SIDEBAR */
     .nav-section { padding: 0 var(--space-4) var(--space-2); margin-top: var(--space-2); }
     .nav-section-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.08em; padding: 0 var(--space-2) var(--space-1); }
     .nav-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); color: var(--color-text-muted); font-size: var(--text-sm); cursor: pointer; transition: background var(--transition), color var(--transition); }
     .nav-item:hover { background: var(--color-surface-offset); color: var(--color-text); }
     .nav-item.active { background: var(--color-primary-highlight); color: var(--color-primary); font-weight: 500; }
-    .nav-item i { flex-shrink: 0; }
     .nav-badge { margin-left: auto; font-size: var(--text-xs); background: var(--color-error); color: var(--color-text-inverse); border-radius: var(--radius-full); padding: 1px 7px; font-weight: 600; }
     .nav-badge.warn { background: var(--color-warning); }
     .sidebar-footer { margin-top: auto; padding: var(--space-4); border-top: 1px solid var(--color-border); }
-    .sidebar-footer .nav-item { color: var(--color-text-muted); }
 
-    /* === PAGE HEADER === */
+    /* PAGE HEADER */
     .page-header { margin-bottom: var(--space-8); }
     .page-title { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 400; color: var(--color-text); line-height: 1.2; }
     .page-subtitle { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-1); }
@@ -135,39 +92,42 @@
     .time-filter button { font-size: var(--text-xs); padding: var(--space-1) var(--space-3); border-radius: calc(var(--radius-md) - 3px); color: var(--color-text-muted); transition: background var(--transition), color var(--transition); }
     .time-filter button.active { background: var(--color-surface-2); color: var(--color-text); box-shadow: var(--shadow-sm); }
 
-    /* === KPI STRIP === */
+    /* KPI STRIP */
     .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-8); }
     .kpi-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); box-shadow: var(--shadow-sm); }
     .kpi-label { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
     .kpi-value { font-size: var(--text-xl); font-weight: 600; line-height: 1; color: var(--color-text); font-variant-numeric: tabular-nums; }
-    .kpi-change { font-size: var(--text-xs); display: flex; align-items: center; gap: var(--space-1); }
-    .kpi-change.up { color: var(--color-success); }
-    .kpi-change.down { color: var(--color-error); }
-    .kpi-change.neutral { color: var(--color-text-muted); }
+    .kpi-change { font-size: var(--text-xs); display: flex; align-items: center; gap: var(--space-1); color: var(--color-text-muted); }
     .kpi-icon { width: 32px; height: 32px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-1); }
     .kpi-icon.teal { background: var(--color-primary-highlight); color: var(--color-primary); }
     .kpi-icon.orange { background: var(--color-orange-highlight); color: var(--color-orange); }
     .kpi-icon.blue { background: var(--color-blue-highlight); color: var(--color-blue); }
     .kpi-icon.green { background: var(--color-success-highlight); color: var(--color-success); }
 
-    /* === MAIN GRID === */
+    /* SKELETON */
+    @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+    .skeleton { background: linear-gradient(90deg,var(--color-surface-offset) 25%,var(--color-surface-dynamic) 50%,var(--color-surface-offset) 75%); background-size:200% 100%; animation:shimmer 1.5s ease-in-out infinite; border-radius:var(--radius-sm); }
+    .skeleton-text { height: 1em; margin-bottom: var(--space-2); }
+    .skeleton-value { height: 2em; width: 60%; margin-bottom: var(--space-1); }
+
+    /* MAIN GRID */
     .content-grid { display: grid; grid-template-columns: 1fr 340px; gap: var(--space-6); }
 
-    /* === SECTION CARD === */
+    /* SECTION CARD */
     .section-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; }
     .card-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--color-divider); gap: var(--space-4); }
     .card-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); display: flex; align-items: center; gap: var(--space-2); }
     .card-action { font-size: var(--text-xs); color: var(--color-primary); cursor: pointer; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); transition: background var(--transition); }
     .card-action:hover { background: var(--color-primary-highlight); }
 
-    /* === TIMELINE === */
-    .timeline { padding: var(--space-2) 0; }
+    /* TIMELINE */
+    .timeline { padding: var(--space-2) 0; max-height: 600px; overflow-y: auto; }
     .timeline-group { padding: 0 var(--space-5); }
     .timeline-date { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.07em; padding: var(--space-3) 0 var(--space-2); }
     .event-item { display: grid; grid-template-columns: 36px 1fr; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); cursor: pointer; transition: background var(--transition); border-radius: var(--radius-md); }
     .event-item:last-child { border-bottom: none; }
     .event-item:hover { background: var(--color-surface-offset); margin: 0 calc(-1 * var(--space-2)); padding: var(--space-3) var(--space-2); }
-    .event-icon { width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .event-icon { width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--color-surface-offset); color: var(--color-text-muted); }
     .event-icon.climate { background: var(--color-orange-highlight); color: var(--color-orange); }
     .event-icon.door { background: var(--color-blue-highlight); color: var(--color-blue); }
     .event-icon.motion { background: var(--color-primary-highlight); color: var(--color-primary); }
@@ -175,7 +135,6 @@
     [data-theme="light"] .event-icon.light { background: #f5f0d0; color: #b08a00; }
     .event-icon.security { background: var(--color-error-highlight); color: var(--color-error); }
     .event-icon.power { background: var(--color-success-highlight); color: var(--color-success); }
-    .event-body {}
     .event-summary { font-size: var(--text-sm); color: var(--color-text); line-height: 1.4; }
     .event-summary strong { font-weight: 600; }
     .event-meta { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-1); }
@@ -186,22 +145,28 @@
     .tag-manual { background: var(--color-surface-dynamic); color: var(--color-text-muted); }
     .event-why { margin-top: var(--space-2); font-size: var(--text-xs); color: var(--color-text-muted); background: var(--color-surface-offset); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); display: none; line-height: 1.5; border-left: 2px solid var(--color-primary); }
     .event-item.expanded .event-why { display: block; }
+    .empty-timeline { text-align: center; padding: var(--space-12) var(--space-8); color: var(--color-text-muted); font-size: var(--text-sm); }
+    .empty-timeline svg { margin: 0 auto var(--space-4); color: var(--color-text-faint); }
 
-    /* === ATTENTION CENTER === */
+    /* ATTENTION */
     .attention-list { padding: var(--space-2) var(--space-4); }
     .attention-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3) var(--space-1); border-bottom: 1px solid var(--color-divider); }
     .attention-item:last-child { border-bottom: none; }
     .attention-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-    .dot-red { background: var(--color-error); }
-    .dot-orange { background: var(--color-orange); }
-    .dot-yellow { background: #e8c84a; }
-    .dot-blue { background: var(--color-blue); }
-    .attention-body { flex: 1; }
+    .dot-red { background: var(--color-error); } .dot-orange { background: var(--color-orange); } .dot-yellow { background: #e8c84a; } .dot-blue { background: var(--color-blue); }
     .attention-title { font-size: var(--text-sm); color: var(--color-text); font-weight: 500; line-height: 1.3; }
     .attention-desc { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
-    .attention-action { font-size: var(--text-xs); color: var(--color-primary); margin-top: var(--space-1); cursor: pointer; }
 
-    /* === ROUTINE COACH === */
+    /* ROOM GRID */
+    .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); padding: var(--space-4); }
+    .room-tile { background: var(--color-surface-offset); border-radius: var(--radius-lg); padding: var(--space-4); border: 1px solid var(--color-border); cursor: pointer; transition: background var(--transition), box-shadow var(--transition); }
+    .room-tile:hover { background: var(--color-surface-dynamic); box-shadow: var(--shadow-md); }
+    .room-tile.active-room { border-color: var(--color-primary); background: var(--color-primary-highlight); }
+    .room-name { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
+    .room-stat { font-size: var(--text-base); font-weight: 600; color: var(--color-text); }
+    .room-sub { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
+
+    /* COACH */
     .coach-list { padding: var(--space-2) var(--space-4); }
     .coach-item { padding: var(--space-3) var(--space-1); border-bottom: 1px solid var(--color-divider); }
     .coach-item:last-child { border-bottom: none; }
@@ -214,65 +179,56 @@
     .btn-accept { background: var(--color-primary); color: var(--color-text-inverse); border-color: var(--color-primary); }
     .btn-accept:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
     .btn-dismiss { background: transparent; color: var(--color-text-muted); border-color: var(--color-border); }
-    .btn-dismiss:hover { background: var(--color-surface-offset); color: var(--color-text); }
-
-    /* === RIGHT COLUMN === */
+    .btn-dismiss:hover { background: var(--color-surface-offset); }
     .right-col { display: flex; flex-direction: column; gap: var(--space-6); }
+    .tab-bar { display: flex; border-bottom: 1px solid var(--color-divider); padding: 0 var(--space-4); }
+    .tab-btn { font-size: var(--text-sm); padding: var(--space-3) var(--space-4); color: var(--color-text-muted); border-bottom: 2px solid transparent; cursor: pointer; transition: color var(--transition), border-color var(--transition); margin-bottom: -1px; }
+    .tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 500; }
 
-    /* === ROOM MAP === */
-    .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); padding: var(--space-4); }
-    .room-tile { background: var(--color-surface-offset); border-radius: var(--radius-lg); padding: var(--space-4); border: 1px solid var(--color-border); cursor: pointer; transition: background var(--transition), box-shadow var(--transition); }
-    .room-tile:hover { background: var(--color-surface-dynamic); box-shadow: var(--shadow-md); }
-    .room-tile.active-room { border-color: var(--color-primary); background: var(--color-primary-highlight); }
-    .room-name { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
-    .room-stat { font-size: var(--text-base); font-weight: 600; color: var(--color-text); }
-    .room-sub { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
-    .room-icons { display: flex; gap: var(--space-2); margin-top: var(--space-2); }
-    .room-icon-dot { width: 20px; height: 20px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; background: var(--color-surface-dynamic); color: var(--color-text-muted); }
-    .room-icon-dot.on { background: var(--color-primary-highlight); color: var(--color-primary); }
-    .room-icon-dot.alert { background: var(--color-warning-highlight); color: var(--color-warning); }
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: oklch(0 0 0 / 0.5); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: var(--space-4); opacity: 0; pointer-events: none; transition: opacity var(--transition); }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); width: 100%; max-width: 500px; padding: var(--space-6); }
+    .modal-title { font-family: var(--font-display); font-size: var(--text-lg); margin-bottom: var(--space-2); }
+    .modal-subtitle { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-5); line-height: 1.5; }
+    .form-label { display: block; font-size: var(--text-sm); font-weight: 500; margin-bottom: var(--space-2); }
+    .form-input { width: 100%; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface-offset); color: var(--color-text); font-size: var(--text-sm); margin-bottom: var(--space-4); transition: border-color var(--transition); }
+    .form-input:focus { outline: none; border-color: var(--color-primary); }
+    .form-hint { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: calc(-1 * var(--space-3)); margin-bottom: var(--space-4); line-height: 1.5; }
+    .modal-footer { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-6); }
+    .modal-error { font-size: var(--text-xs); color: var(--color-error); display: none; }
+    .modal-error.show { display: block; }
+    .btn-primary { font-size: var(--text-sm); padding: var(--space-2) var(--space-6); background: var(--color-primary); color: var(--color-text-inverse); border-radius: var(--radius-full); font-weight: 500; border: none; cursor: pointer; transition: background var(--transition); min-width: 100px; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-secondary { font-size: var(--text-sm); padding: var(--space-2) var(--space-4); background: transparent; color: var(--color-text-muted); border-radius: var(--radius-full); font-weight: 500; border: 1px solid var(--color-border); cursor: pointer; transition: background var(--transition); }
+    .btn-secondary:hover { background: var(--color-surface-offset); }
+    .connect-steps { background: var(--color-surface-offset); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-5); border: 1px solid var(--color-border); }
+    .connect-step { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.6; display: flex; gap: var(--space-2); }
+    .connect-step + .connect-step { margin-top: var(--space-2); }
+    .step-num { background: var(--color-surface-dynamic); border-radius: var(--radius-full); width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--color-text-muted); flex-shrink: 0; margin-top: 1px; }
+    .disconnect-btn { font-size: var(--text-xs); color: var(--color-error); cursor: pointer; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); transition: background var(--transition); border: none; background: none; }
+    .disconnect-btn:hover { background: var(--color-error-highlight); }
 
-    /* === MOBILE === */
+    /* ANIMATIONS */
+    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .section-card { animation: fadeSlideIn 0.35s ease both; }
+    .kpi-card { animation: fadeSlideIn 0.3s ease both; }
+    .kpi-card:nth-child(2) { animation-delay: 0.05s; } .kpi-card:nth-child(3) { animation-delay: 0.1s; } .kpi-card:nth-child(4) { animation-delay: 0.15s; }
+    .event-item { animation: fadeSlideIn 0.2s ease both; }
+
+    /* MOBILE */
     @media (max-width: 900px) {
-      .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .app { grid-template-columns: 1fr; }
       .sidebar { display: none; }
       .kpi-grid { grid-template-columns: 1fr 1fr; }
       .content-grid { grid-template-columns: 1fr; }
       .main { padding: var(--space-4); }
     }
-    @media (max-width: 500px) {
-      .kpi-grid { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
-      .kpi-value { font-size: var(--text-lg); }
-    }
-
-    /* === ANIMATIONS === */
-    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    .section-card { animation: fadeSlideIn 0.35s ease both; }
-    .kpi-card { animation: fadeSlideIn 0.3s ease both; }
-    .kpi-card:nth-child(2) { animation-delay: 0.05s; }
-    .kpi-card:nth-child(3) { animation-delay: 0.10s; }
-    .kpi-card:nth-child(4) { animation-delay: 0.15s; }
-
-    /* === TABS === */
-    .tab-bar { display: flex; gap: 0; border-bottom: 1px solid var(--color-divider); padding: 0 var(--space-4); }
-    .tab-btn { font-size: var(--text-sm); padding: var(--space-3) var(--space-4); color: var(--color-text-muted); border-bottom: 2px solid transparent; cursor: pointer; transition: color var(--transition), border-color var(--transition); margin-bottom: -1px; }
-    .tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 500; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    /* === MODAL === */
-    .modal-overlay { position: fixed; inset: 0; background: oklch(0 0 0 / 0.5); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: var(--space-4); opacity: 0; pointer-events: none; transition: opacity var(--transition); }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); width: 100%; max-width: 480px; padding: var(--space-6); animation: fadeSlideIn 0.25s ease both; }
-    .modal-title { font-family: var(--font-display); font-size: var(--text-lg); margin-bottom: var(--space-4); }
-    .modal-body { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6; }
-    .modal-footer { margin-top: var(--space-6); display: flex; justify-content: flex-end; }
-    .btn-primary { font-size: var(--text-sm); padding: var(--space-2) var(--space-6); background: var(--color-primary); color: var(--color-text-inverse); border-radius: var(--radius-full); font-weight: 500; border: none; cursor: pointer; transition: background var(--transition); }
-    .btn-primary:hover { background: var(--color-primary-hover); }
+    @media (max-width: 500px) { .kpi-grid { gap: var(--space-3); } }
   </style>
 </head>
 <body>
-
 <div class="app">
   <!-- TOPBAR -->
   <header class="topbar">
@@ -285,16 +241,12 @@
       <span class="logo-text">Home<span>Memory</span></span>
     </div>
     <div class="topbar-right">
-      <div class="ha-status">
-        <div class="status-dot"></div>
-        Connected to HA
-      </div>
-      <button class="icon-btn" onclick="openModal()" aria-label="Settings">
-        <i data-lucide="settings" width="18" height="18"></i>
+      <button class="ha-status" id="haStatusBtn" onclick="openModal()" aria-label="HA connection status">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusLabel">Not connected</span>
       </button>
-      <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
-        <i data-lucide="moon" width="18" height="18"></i>
-      </button>
+      <button class="icon-btn" onclick="openModal()" aria-label="Settings"><i data-lucide="settings" width="18" height="18"></i></button>
+      <button class="icon-btn" data-theme-toggle aria-label="Toggle theme"><i data-lucide="moon" width="18" height="18"></i></button>
     </div>
   </header>
 
@@ -302,49 +254,32 @@
   <aside class="sidebar">
     <div class="nav-section">
       <div class="nav-section-label">Overview</div>
-      <div class="nav-item active" onclick="setPage('timeline')">
-        <i data-lucide="activity" width="16" height="16"></i> Timeline
-      </div>
-      <div class="nav-item" onclick="setPage('attention')">
-        <i data-lucide="bell" width="16" height="16"></i> Attention Center
-        <span class="nav-badge warn">3</span>
-      </div>
-      <div class="nav-item" onclick="setPage('coach')">
-        <i data-lucide="zap" width="16" height="16"></i> Routine Coach
-        <span class="nav-badge">2</span>
-      </div>
-    </div>
-    <div class="nav-section">
-      <div class="nav-section-label">Rooms</div>
-      <div class="nav-item" onclick="setPage('rooms')"><i data-lucide="sofa" width="16" height="16"></i> Living Room</div>
-      <div class="nav-item" onclick="setPage('rooms')"><i data-lucide="utensils" width="16" height="16"></i> Kitchen</div>
-      <div class="nav-item" onclick="setPage('rooms')"><i data-lucide="bed" width="16" height="16"></i> Bedroom</div>
-      <div class="nav-item" onclick="setPage('rooms')"><i data-lucide="car" width="16" height="16"></i> Garage</div>
+      <div class="nav-item active"><i data-lucide="activity" width="16" height="16"></i> Timeline</div>
+      <div class="nav-item"><i data-lucide="bell" width="16" height="16"></i> Attention Center <span class="nav-badge warn" id="attentionBadge">0</span></div>
+      <div class="nav-item"><i data-lucide="zap" width="16" height="16"></i> Routine Coach</div>
     </div>
     <div class="nav-section">
       <div class="nav-section-label">Entities</div>
-      <div class="nav-item" onclick="setPage('climate')"><i data-lucide="thermometer" width="16" height="16"></i> Climate</div>
-      <div class="nav-item" onclick="setPage('security')"><i data-lucide="shield" width="16" height="16"></i> Security</div>
-      <div class="nav-item" onclick="setPage('energy')"><i data-lucide="bolt" width="16" height="16"></i> Energy</div>
+      <div class="nav-item"><i data-lucide="thermometer" width="16" height="16"></i> Climate</div>
+      <div class="nav-item"><i data-lucide="shield" width="16" height="16"></i> Security</div>
+      <div class="nav-item"><i data-lucide="sun" width="16" height="16"></i> Lights</div>
     </div>
     <div class="sidebar-footer">
-      <div class="nav-item" onclick="openModal()"><i data-lucide="plug" width="16" height="16"></i> Connect HA</div>
+      <div class="nav-item" onclick="openModal()"><i data-lucide="plug" width="16" height="16"></i> <span id="sidebarConnectLabel">Connect HA</span></div>
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="main">
-    <!-- PAGE HEADER -->
     <div class="page-header">
       <div class="page-header-row">
         <div>
-          <h1 class="page-title">Good afternoon, Matt 👋</h1>
-          <p class="page-subtitle">Here's what your home has been up to today — Monday, May 11</p>
+          <h1 class="page-title" id="greeting">Good morning 👋</h1>
+          <p class="page-subtitle" id="dateSubtitle">Loading...</p>
         </div>
         <div class="time-filter">
           <button onclick="setFilter(this,'today')" class="active">Today</button>
           <button onclick="setFilter(this,'week')">Week</button>
-          <button onclick="setFilter(this,'month')">Month</button>
         </div>
       </div>
     </div>
@@ -353,133 +288,49 @@
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-icon teal"><i data-lucide="zap" width="16" height="16"></i></div>
-        <div class="kpi-label">Automations fired</div>
-        <div class="kpi-value">14</div>
-        <div class="kpi-change up"><i data-lucide="trending-up" width="12" height="12"></i> +3 vs yesterday</div>
+        <div class="kpi-label">Automations today</div>
+        <div class="kpi-value" id="kpiAutomations"><div class="skeleton skeleton-value"></div></div>
+        <div class="kpi-change" id="kpiAutoChange"></div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon orange"><i data-lucide="thermometer" width="16" height="16"></i></div>
         <div class="kpi-label">Avg. indoor temp</div>
-        <div class="kpi-value">71°F</div>
-        <div class="kpi-change neutral"><i data-lucide="minus" width="12" height="12"></i> ±0 vs yesterday</div>
+        <div class="kpi-value" id="kpiTemp"><div class="skeleton skeleton-value"></div></div>
+        <div class="kpi-change" id="kpiTempChange"></div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon blue"><i data-lucide="door-open" width="16" height="16"></i></div>
-        <div class="kpi-label">Doors opened</div>
-        <div class="kpi-value">27</div>
-        <div class="kpi-change down"><i data-lucide="trending-down" width="12" height="12"></i> −5 vs yesterday</div>
+        <div class="kpi-label">Open doors/windows</div>
+        <div class="kpi-value" id="kpiDoors"><div class="skeleton skeleton-value"></div></div>
+        <div class="kpi-change" id="kpiDoorsChange"></div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-icon green"><i data-lucide="leaf" width="16" height="16"></i></div>
-        <div class="kpi-label">Energy saved</div>
-        <div class="kpi-value">1.4 kWh</div>
-        <div class="kpi-change up"><i data-lucide="trending-up" width="12" height="12"></i> +0.3 kWh today</div>
+        <div class="kpi-icon green"><i data-lucide="cpu" width="16" height="16"></i></div>
+        <div class="kpi-label">Entities online</div>
+        <div class="kpi-value" id="kpiEntities"><div class="skeleton skeleton-value"></div></div>
+        <div class="kpi-change" id="kpiEntitiesChange"></div>
       </div>
     </div>
 
-    <!-- MAIN GRID -->
+    <!-- CONTENT GRID -->
     <div class="content-grid">
-      <!-- LEFT: TIMELINE -->
+      <!-- TIMELINE -->
       <div>
         <div class="section-card">
           <div class="card-header">
             <div class="card-title"><i data-lucide="activity" width="15" height="15"></i> Home Timeline</div>
-            <span class="card-action">Export</span>
+            <span class="card-action" onclick="refreshTimeline()">Refresh</span>
           </div>
           <div class="tab-bar">
             <button class="tab-btn active" onclick="switchTab(this,'all')">All events</button>
             <button class="tab-btn" onclick="switchTab(this,'automations')">Automations</button>
-            <button class="tab-btn" onclick="switchTab(this,'alerts')">Alerts</button>
+            <button class="tab-btn" onclick="switchTab(this,'alerts')">State changes</button>
           </div>
-          <div class="timeline">
-            <div class="timeline-group">
-              <div class="timeline-date">Today</div>
-
-              <div class="event-item" onclick="toggleExpand(this)">
-                <div class="event-icon climate"><i data-lucide="thermometer-sun" width="16" height="16"></i></div>
-                <div class="event-body">
-                  <div class="event-summary"><strong>Upstairs HVAC</strong> switched to cooling mode</div>
-                  <div class="event-meta">
-                    <span class="event-time">2:10 PM</span>
-                    <span class="event-tag tag-auto">Automation</span>
-                  </div>
-                  <div class="event-why">📍 <strong>Why this happened:</strong> Upstairs hallway sensor read 78°F — 3° above your comfort threshold. Outside temp was 84°F. The "Hot Afternoon" automation triggered HVAC cooling and closed the two open upstairs windows via smart locks.</div>
-                </div>
-              </div>
-
-              <div class="event-item" onclick="toggleExpand(this)">
-                <div class="event-icon door"><i data-lucide="door-open" width="16" height="16"></i></div>
-                <div class="event-body">
-                  <div class="event-summary"><strong>Garage door</strong> left open for 14 minutes</div>
-                  <div class="event-meta">
-                    <span class="event-time">1:47 PM</span>
-                    <span class="event-tag tag-alert">Alert</span>
-                  </div>
-                  <div class="event-why">📍 <strong>Why this happened:</strong> Garage door was opened at 1:33 PM (manually) and no close event was detected for 14 minutes. Home Memory sent a mobile notification. You closed it at 1:47 PM.</div>
-                </div>
-              </div>
-
-              <div class="event-item" onclick="toggleExpand(this)">
-                <div class="event-icon light"><i data-lucide="sun" width="16" height="16"></i></div>
-                <div class="event-body">
-                  <div class="event-summary"><strong>Living room lights</strong> dimmed to 40%</div>
-                  <div class="event-meta">
-                    <span class="event-time">12:30 PM</span>
-                    <span class="event-tag tag-auto">Automation</span>
-                  </div>
-                  <div class="event-why">📍 <strong>Why this happened:</strong> Lux sensor in living room read 1,200 lx — above the 800 lx daytime threshold. The "Bright Day Dim" scene activated, reducing overhead lights by 60% to avoid glare on screens.</div>
-                </div>
-              </div>
-
-              <div class="event-item" onclick="toggleExpand(this)">
-                <div class="event-icon motion"><i data-lucide="footprints" width="16" height="16"></i></div>
-                <div class="event-body">
-                  <div class="event-summary"><strong>Front door</strong> motion detected, nobody home</div>
-                  <div class="event-meta">
-                    <span class="event-time">11:15 AM</span>
-                    <span class="event-tag tag-alert">Alert</span>
-                  </div>
-                  <div class="event-why">📍 <strong>Why this happened:</strong> Front door camera detected motion while all presence sensors showed "away." HA cross-checked with phone GPS — both phones were outside the geofence. A snapshot was saved and a push notification was sent.</div>
-                </div>
-              </div>
-
-              <div class="event-item" onclick="toggleExpand(this)">
-                <div class="event-icon power"><i data-lucide="bolt" width="16" height="16"></i></div>
-                <div class="event-body">
-                  <div class="event-summary"><strong>Eco mode</strong> activated — nobody home</div>
-                  <div class="event-meta">
-                    <span class="event-time">8:47 AM</span>
-                    <span class="event-tag tag-auto">Automation</span>
-                  </div>
-                  <div class="event-why">📍 <strong>Why this happened:</strong> Both phones left the home geofence by 8:45 AM. The "Away" automation ran: HVAC set to eco (68–76°F range), non-essential lights off, robot vacuum started its scheduled clean.</div>
-                </div>
-              </div>
-
-              <div class="timeline-date">Yesterday</div>
-
-              <div class="event-item" onclick="toggleExpand(this)">
-                <div class="event-icon security"><i data-lucide="lock" width="16" height="16"></i></div>
-                <div class="event-body">
-                  <div class="event-summary"><strong>Front door lock</strong> auto-locked at 10:00 PM</div>
-                  <div class="event-meta">
-                    <span class="event-time">10:00 PM</span>
-                    <span class="event-tag tag-auto">Automation</span>
-                  </div>
-                  <div class="event-why">📍 <strong>Why this happened:</strong> Nightly "Goodnight" routine triggered at 10:00 PM. All exterior locks engaged, porch light set to 20%, and climate shifted to sleep mode (65°F).</div>
-                </div>
-              </div>
-
-              <div class="event-item" onclick="toggleExpand(this)">
-                <div class="event-icon climate"><i data-lucide="wind" width="16" height="16"></i></div>
-                <div class="event-body">
-                  <div class="event-summary"><strong>Air quality alert</strong> — kitchen CO₂ elevated</div>
-                  <div class="event-meta">
-                    <span class="event-time">6:42 PM</span>
-                    <span class="event-tag tag-alert">Alert</span>
-                  </div>
-                  <div class="event-why">📍 <strong>Why this happened:</strong> Kitchen CO₂ sensor spiked to 1,450 ppm during cooking — above the 1,000 ppm comfort threshold. The range hood was automatically turned to high speed and the kitchen window was flagged for manual opening.</div>
-                </div>
-              </div>
+          <div class="timeline" id="timeline">
+            <div class="empty-timeline">
+              <i data-lucide="plug" width="32" height="32"></i>
+              <p style="margin-top:var(--space-3)">Connect to Home Assistant to see your live timeline</p>
+              <button class="btn-xs btn-accept" style="margin-top:var(--space-4)" onclick="openModal()">Connect now</button>
             </div>
           </div>
         </div>
@@ -487,44 +338,17 @@
 
       <!-- RIGHT COLUMN -->
       <div class="right-col">
-
-        <!-- ATTENTION CENTER -->
+        <!-- ATTENTION -->
         <div class="section-card">
           <div class="card-header">
             <div class="card-title"><i data-lucide="bell" width="15" height="15"></i> Attention Center</div>
-            <span class="card-action">Dismiss all</span>
           </div>
-          <div class="attention-list">
-            <div class="attention-item">
-              <div class="attention-dot dot-red"></div>
-              <div class="attention-body">
-                <div class="attention-title">Smoke detector — battery critical</div>
-                <div class="attention-desc">Master bedroom sensor: 4% battery. Replace soon.</div>
-                <div class="attention-action">View sensor →</div>
-              </div>
-            </div>
-            <div class="attention-item">
-              <div class="attention-dot dot-orange"></div>
-              <div class="attention-body">
-                <div class="attention-title">Basement temp unusually low</div>
-                <div class="attention-desc">58°F — 9° below your baseline for this time of year.</div>
-                <div class="attention-action">Check HVAC zone →</div>
-              </div>
-            </div>
-            <div class="attention-item">
-              <div class="attention-dot dot-yellow"></div>
-              <div class="attention-body">
-                <div class="attention-title">Zigbee coordinator offline 4 hrs</div>
-                <div class="attention-desc">3 devices unreachable. Reconnected at 9:10 AM.</div>
-                <div class="attention-action">View devices →</div>
-              </div>
-            </div>
+          <div class="attention-list" id="attentionList">
             <div class="attention-item">
               <div class="attention-dot dot-blue"></div>
-              <div class="attention-body">
-                <div class="attention-title">HA update available: 2026.5.2</div>
-                <div class="attention-desc">Security patch + 4 new integrations included.</div>
-                <div class="attention-action">View changelog →</div>
+              <div>
+                <div class="attention-title">Connect Home Assistant</div>
+                <div class="attention-desc">Enter your HA URL and token to see live alerts.</div>
               </div>
             </div>
           </div>
@@ -534,45 +358,9 @@
         <div class="section-card">
           <div class="card-header">
             <div class="card-title"><i data-lucide="layout-grid" width="15" height="15"></i> Room Snapshot</div>
-            <span class="card-action">All rooms</span>
           </div>
-          <div class="room-grid">
-            <div class="room-tile active-room">
-              <div class="room-name">Living Room</div>
-              <div class="room-stat">71°F</div>
-              <div class="room-sub">2 people • 3 lights</div>
-              <div class="room-icons">
-                <div class="room-icon-dot on"><i data-lucide="sun" width="11" height="11"></i></div>
-                <div class="room-icon-dot on"><i data-lucide="tv" width="11" height="11"></i></div>
-                <div class="room-icon-dot"><i data-lucide="door-closed" width="11" height="11"></i></div>
-              </div>
-            </div>
-            <div class="room-tile">
-              <div class="room-name">Kitchen</div>
-              <div class="room-stat">73°F</div>
-              <div class="room-sub">1 person • 2 lights</div>
-              <div class="room-icons">
-                <div class="room-icon-dot on"><i data-lucide="sun" width="11" height="11"></i></div>
-                <div class="room-icon-dot alert"><i data-lucide="wind" width="11" height="11"></i></div>
-              </div>
-            </div>
-            <div class="room-tile">
-              <div class="room-name">Bedroom</div>
-              <div class="room-stat">68°F</div>
-              <div class="room-sub">Empty • Dark</div>
-              <div class="room-icons">
-                <div class="room-icon-dot"><i data-lucide="sun" width="11" height="11"></i></div>
-                <div class="room-icon-dot"><i data-lucide="door-closed" width="11" height="11"></i></div>
-              </div>
-            </div>
-            <div class="room-tile">
-              <div class="room-name">Garage</div>
-              <div class="room-stat">Closed</div>
-              <div class="room-sub">0 motion • 0 lights</div>
-              <div class="room-icons">
-                <div class="room-icon-dot"><i data-lucide="car" width="11" height="11"></i></div>
-              </div>
-            </div>
+          <div class="room-grid" id="roomGrid">
+            <div style="grid-column:1/-1;text-align:center;padding:var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm);">Waiting for HA connection…</div>
           </div>
         </div>
 
@@ -580,26 +368,11 @@
         <div class="section-card">
           <div class="card-header">
             <div class="card-title"><i data-lucide="sparkles" width="15" height="15"></i> Routine Coach</div>
-            <span class="card-action">View all</span>
           </div>
-          <div class="coach-list">
+          <div class="coach-list" id="coachList">
             <div class="coach-item">
-              <div class="coach-header">
-                <div class="coach-title">Auto-close garage at 9 PM</div>
-                <span class="coach-confidence">94% match</span>
-              </div>
+              <div class="coach-header"><div class="coach-title">Auto-close garage at 9 PM</div><span class="coach-confidence">94% match</span></div>
               <div class="coach-desc">You've manually closed the garage between 8:45–9:15 PM on 11 of the last 14 days.</div>
-              <div class="coach-actions">
-                <button class="btn-xs btn-accept" onclick="acceptCoach(this)">Create automation</button>
-                <button class="btn-xs btn-dismiss" onclick="dismissCoach(this)">Dismiss</button>
-              </div>
-            </div>
-            <div class="coach-item">
-              <div class="coach-header">
-                <div class="coach-title">Dim bedroom lights at 9:30 PM</div>
-                <span class="coach-confidence">87% match</span>
-              </div>
-              <div class="coach-desc">Bedroom lights drop to 20% within 10 min of 9:30 PM on most weeknights — likely part of your wind-down routine.</div>
               <div class="coach-actions">
                 <button class="btn-xs btn-accept" onclick="acceptCoach(this)">Create automation</button>
                 <button class="btn-xs btn-dismiss" onclick="dismissCoach(this)">Dismiss</button>
@@ -607,90 +380,494 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </main>
+</div>
 
-      </div><!-- /right-col -->
-    </div><!-- /content-grid -->
-  </main><!-- /main -->
-</div><!-- /app -->
-
-<!-- HA CONNECT MODAL -->
+<!-- CONNECT MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
   <div class="modal">
     <div class="modal-title">Connect Home Assistant</div>
-    <div class="modal-body">
-      <p>Enter your Home Assistant instance URL and a Long-Lived Access Token to connect Home Memory to your live data.</p>
-      <br>
-      <label style="display:block;font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2);">Instance URL</label>
-      <input type="text" placeholder="http://homeassistant.local:8123" style="width:100%;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface-offset);color:var(--color-text);font-size:var(--text-sm);margin-bottom:var(--space-4);">
-      <label style="display:block;font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-2);">Long-Lived Access Token</label>
-      <input type="password" placeholder="eyJhbGci..." style="width:100%;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface-offset);color:var(--color-text);font-size:var(--text-sm);">
+    <div class="modal-subtitle">Home Memory connects directly to your HA instance via WebSocket. Your token is stored only in this browser session and never sent anywhere else.</div>
+
+    <div class="connect-steps">
+      <div class="connect-step"><div class="step-num">1</div><div>Go to your HA profile (bottom-left avatar)</div></div>
+      <div class="connect-step"><div class="step-num">2</div><div>Scroll to <strong>Long-Lived Access Tokens</strong> → Create Token</div></div>
+      <div class="connect-step"><div class="step-num">3</div><div>Copy it and paste it below — you only see it once</div></div>
     </div>
+
+    <label class="form-label" for="haUrl">Home Assistant URL</label>
+    <input class="form-input" id="haUrl" type="text" placeholder="https://homeassistant.local:8123" autocomplete="off" spellcheck="false">
+    <div class="form-hint">Your local or remote HA address (no trailing slash)</div>
+
+    <label class="form-label" for="haToken">Long-Lived Access Token</label>
+    <input class="form-input" id="haToken" type="password" placeholder="eyJhbGci..." autocomplete="off" spellcheck="false">
+    <div class="form-hint">Token stays in memory only. Never committed to any file or repo.</div>
+
     <div class="modal-footer">
-      <button class="btn-primary" onclick="closeModal()">Connect</button>
+      <span class="modal-error" id="modalError"></span>
+      <div style="display:flex;gap:var(--space-3);align-items:center;">
+        <button class="btn-secondary" id="disconnectBtn" onclick="disconnect()" style="display:none;">Disconnect</button>
+        <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn-primary" id="connectBtn" onclick="connect()">Connect</button>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  // Init icons
-  lucide.createIcons();
+lucide.createIcons();
 
-  // Theme toggle
-  (function(){
-    const t = document.querySelector('[data-theme-toggle]');
-    const r = document.documentElement;
-    let d = r.getAttribute('data-theme') || 'dark';
-    function setIcon(theme) {
-      if (!t) return;
-      t.innerHTML = theme === 'dark'
-        ? '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-        : '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+// ─── THEME TOGGLE ───────────────────────────────────────────
+(function(){
+  const t = document.querySelector('[data-theme-toggle]');
+  const r = document.documentElement;
+  let d = r.getAttribute('data-theme') || 'dark';
+  function setIcon(th) {
+    if (!t) return;
+    t.innerHTML = th === 'dark'
+      ? '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      : '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  setIcon(d);
+  if (t) t.addEventListener('click', () => { d = d === 'dark' ? 'light' : 'dark'; r.setAttribute('data-theme', d); setIcon(d); });
+})();
+
+// ─── DATE / GREETING ────────────────────────────────────────
+(function(){
+  const now = new Date();
+  const h = now.getHours();
+  const greet = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').textContent = greet + ' 👋';
+  document.getElementById('dateSubtitle').textContent =
+    now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+})();
+
+// ─── HA STATE ───────────────────────────────────────────────
+let haWs = null;
+let haUrl = '';
+let haToken = '';
+let haStates = {};
+let msgId = 1;
+let pendingCallbacks = {};
+let activeFilter = 'today';
+let activeTab = 'all';
+
+function setStatus(state, label) {
+  const dot = document.getElementById('statusDot');
+  const lbl = document.getElementById('statusLabel');
+  dot.className = 'status-dot ' + state;
+  lbl.textContent = label;
+  document.getElementById('sidebarConnectLabel').textContent = state === 'connected' ? 'Manage Connection' : 'Connect HA';
+}
+
+// ─── WEBSOCKET CONNECT ──────────────────────────────────────
+function connect() {
+  const urlInput = document.getElementById('haUrl').value.trim().replace(/\/+$/, '');
+  const tokenInput = document.getElementById('haToken').value.trim();
+  const errEl = document.getElementById('modalError');
+  const btn = document.getElementById('connectBtn');
+
+  if (!urlInput) { showModalError('Please enter your Home Assistant URL.'); return; }
+  if (!tokenInput) { showModalError('Please enter your Long-Lived Access Token.'); return; }
+
+  errEl.classList.remove('show');
+  btn.textContent = 'Connecting…';
+  btn.disabled = true;
+  setStatus('connecting', 'Connecting…');
+
+  haUrl = urlInput;
+  haToken = tokenInput;
+
+  // Close existing
+  if (haWs) { try { haWs.close(); } catch(e){} }
+
+  const wsUrl = haUrl.replace(/^http/, 'ws') + '/api/websocket';
+
+  try {
+    haWs = new WebSocket(wsUrl);
+  } catch(e) {
+    connectFailed('Could not create WebSocket: ' + e.message);
+    return;
+  }
+
+  const timeout = setTimeout(() => {
+    connectFailed('Connection timed out. Check your HA URL.');
+    try { haWs.close(); } catch(e){}
+  }, 10000);
+
+  haWs.onopen = () => {};
+
+  haWs.onmessage = (raw) => {
+    let msg;
+    try { msg = JSON.parse(raw.data); } catch(e) { return; }
+
+    if (msg.type === 'auth_required') {
+      haWs.send(JSON.stringify({ type: 'auth', access_token: haToken }));
     }
-    setIcon(d);
-    if (t) t.addEventListener('click', () => {
-      d = d === 'dark' ? 'light' : 'dark';
-      r.setAttribute('data-theme', d);
-      setIcon(d);
-    });
-  })();
 
-  // Expand/collapse timeline events
-  function toggleExpand(el) { el.classList.toggle('expanded'); }
+    else if (msg.type === 'auth_ok') {
+      clearTimeout(timeout);
+      setStatus('connected', 'Connected to HA');
+      btn.textContent = 'Connected!';
+      document.getElementById('disconnectBtn').style.display = 'inline-flex';
+      setTimeout(closeModal, 800);
+      loadAllData();
+      subscribeEvents();
+    }
 
-  // Tab switching
-  function switchTab(btn, tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    else if (msg.type === 'auth_invalid') {
+      clearTimeout(timeout);
+      connectFailed('Invalid token. Generate a new Long-Lived Access Token in HA.');
+    }
+
+    else if (msg.type === 'result') {
+      const cb = pendingCallbacks[msg.id];
+      if (cb) { cb(msg); delete pendingCallbacks[msg.id]; }
+    }
+
+    else if (msg.type === 'event') {
+      handleEvent(msg.event);
+    }
+  };
+
+  haWs.onerror = () => {
+    clearTimeout(timeout);
+    connectFailed('WebSocket error. Check your HA URL and that HA is reachable.');
+  };
+
+  haWs.onclose = (e) => {
+    if (document.getElementById('statusDot').classList.contains('connected')) {
+      setStatus('error', 'Disconnected');
+    }
+  };
+}
+
+function connectFailed(msg) {
+  setStatus('error', 'Connection failed');
+  showModalError(msg);
+  const btn = document.getElementById('connectBtn');
+  btn.textContent = 'Retry';
+  btn.disabled = false;
+}
+
+function disconnect() {
+  if (haWs) { try { haWs.close(); } catch(e){} haWs = null; }
+  haStates = {};
+  setStatus('', 'Not connected');
+  document.getElementById('disconnectBtn').style.display = 'none';
+  document.getElementById('connectBtn').textContent = 'Connect';
+  document.getElementById('connectBtn').disabled = false;
+  resetUI();
+  closeModal();
+}
+
+function sendMsg(payload, callback) {
+  if (!haWs || haWs.readyState !== 1) return;
+  const id = msgId++;
+  payload.id = id;
+  if (callback) pendingCallbacks[id] = callback;
+  haWs.send(JSON.stringify(payload));
+}
+
+// ─── LOAD ALL DATA ──────────────────────────────────────────
+function loadAllData() {
+  fetchStates();
+  fetchLogbook();
+}
+
+function fetchStates() {
+  sendMsg({ type: 'get_states' }, (res) => {
+    if (!res.success) return;
+    haStates = {};
+    res.result.forEach(e => { haStates[e.entity_id] = e; });
+    renderKPIs();
+    renderRooms();
+    renderAttention();
+  });
+}
+
+function fetchLogbook() {
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  sendMsg({
+    type: 'logbook/get_events',
+    start_time: start.toISOString(),
+    end_time: new Date().toISOString()
+  }, (res) => {
+    if (res.success && res.result) {
+      renderTimeline(res.result);
+    } else {
+      // Fallback: use REST API via fetch
+      fetchLogbookREST();
+    }
+  });
+}
+
+function fetchLogbookREST() {
+  const start = new Date();
+  start.setHours(0,0,0,0);
+  fetch(haUrl + '/api/logbook/' + start.toISOString(), {
+    headers: { 'Authorization': 'Bearer ' + haToken }
+  })
+  .then(r => r.json())
+  .then(data => renderTimeline(data))
+  .catch(() => renderTimeline([]));
+}
+
+function subscribeEvents() {
+  // Subscribe to state_changed for live updates
+  sendMsg({ type: 'subscribe_events', event_type: 'state_changed' });
+}
+
+function handleEvent(event) {
+  if (event.event_type === 'state_changed') {
+    const d = event.data;
+    haStates[d.entity_id] = d.new_state;
+    renderKPIs();
+    renderRooms();
+    // Prepend to timeline
+    prependTimelineEvent(d);
+  }
+}
+
+// ─── RENDER KPIs ────────────────────────────────────────────
+function renderKPIs() {
+  const states = Object.values(haStates);
+
+  // Avg indoor temp from climate/sensor entities
+  const tempSensors = states.filter(e =>
+    e.entity_id.includes('temperature') &&
+    (e.entity_id.startsWith('sensor.') || e.entity_id.startsWith('climate.')) &&
+    !isNaN(parseFloat(e.state))
+  );
+  const avgTemp = tempSensors.length
+    ? (tempSensors.reduce((s, e) => s + parseFloat(e.state), 0) / tempSensors.length)
+    : null;
+  document.getElementById('kpiTemp').textContent = avgTemp !== null
+    ? Math.round(avgTemp) + (tempSensors[0]?.attributes?.unit_of_measurement || '°')
+    : 'N/A';
+  document.getElementById('kpiTempChange').textContent =
+    tempSensors.length + ' sensors reporting';
+
+  // Open doors/windows
+  const openDoors = states.filter(e =>
+    (e.entity_id.includes('door') || e.entity_id.includes('window')) &&
+    e.state === 'on'
+  );
+  document.getElementById('kpiDoors').textContent = openDoors.length;
+  document.getElementById('kpiDoorsChange').textContent =
+    openDoors.length === 0 ? 'All closed ✓' : openDoors.length + ' currently open';
+
+  // Entities online
+  const unavailable = states.filter(e => e.state === 'unavailable' || e.state === 'unknown').length;
+  const total = states.length;
+  document.getElementById('kpiEntities').textContent = (total - unavailable) + '/' + total;
+  document.getElementById('kpiEntitiesChange').textContent =
+    unavailable === 0 ? 'All online ✓' : unavailable + ' unavailable';
+
+  // Automations count today (estimated from logbook data length)
+  const autoCount = states.filter(e => e.entity_id.startsWith('automation.')).length;
+  document.getElementById('kpiAutomations').textContent = autoCount;
+  document.getElementById('kpiAutoChange').textContent = autoCount + ' configured';
+}
+
+// ─── RENDER ROOMS ───────────────────────────────────────────
+function renderRooms() {
+  const states = Object.values(haStates);
+
+  // Group entities by area if available, otherwise by name patterns
+  const areas = {};
+  states.forEach(e => {
+    const area = e.attributes?.area_id || guessArea(e.entity_id);
+    if (!area) return;
+    if (!areas[area]) areas[area] = [];
+    areas[area].push(e);
+  });
+
+  const roomNames = Object.keys(areas).slice(0, 6);
+  if (roomNames.length === 0) {
+    document.getElementById('roomGrid').innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm);">No area-assigned entities found. Assign areas in HA Settings.</div>';
+    return;
   }
 
-  // Time filter
-  function setFilter(btn, period) {
-    document.querySelectorAll('.time-filter button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+  document.getElementById('roomGrid').innerHTML = roomNames.map((area, i) => {
+    const entities = areas[area];
+    const temp = entities.find(e => e.entity_id.includes('temperature') && !isNaN(parseFloat(e.state)));
+    const lights = entities.filter(e => e.entity_id.startsWith('light.') && e.state === 'on').length;
+    const motion = entities.some(e => e.entity_id.includes('motion') && e.state === 'on');
+    const name = area.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    return `<div class="room-tile ${i===0?'active-room':''}">
+      <div class="room-name">${name}</div>
+      <div class="room-stat">${temp ? Math.round(parseFloat(temp.state)) + (temp.attributes.unit_of_measurement || '°') : '—'}</div>
+      <div class="room-sub">${motion ? '🟢 Motion' : 'No motion'} · ${lights} light${lights!==1?'s':''} on</div>
+    </div>`;
+  }).join('');
+}
+
+function guessArea(entity_id) {
+  const rooms = ['living_room','kitchen','bedroom','bathroom','garage','office','basement','upstairs','downstairs','hallway','laundry','dining'];
+  return rooms.find(r => entity_id.includes(r)) || null;
+}
+
+// ─── RENDER ATTENTION ───────────────────────────────────────
+function renderAttention() {
+  const states = Object.values(haStates);
+  const items = [];
+
+  // Low battery devices
+  states.filter(e => e.entity_id.includes('battery') && parseFloat(e.state) < 20 && !isNaN(parseFloat(e.state)))
+    .forEach(e => items.push({ dot: 'dot-red', title: 'Low battery: ' + friendlyName(e), desc: e.state + '% — replace soon' }));
+
+  // Unavailable devices
+  const unavail = states.filter(e => e.state === 'unavailable');
+  if (unavail.length > 0)
+    items.push({ dot: 'dot-orange', title: unavail.length + ' device' + (unavail.length>1?'s':'')+' unavailable', desc: unavail.slice(0,3).map(e=>friendlyName(e)).join(', ') });
+
+  // Open doors/windows
+  const open = states.filter(e => (e.entity_id.includes('door')||e.entity_id.includes('window')) && e.state==='on');
+  if (open.length > 0)
+    items.push({ dot: 'dot-yellow', title: open.length + ' door/window open', desc: open.map(e=>friendlyName(e)).join(', ') });
+
+  // High CO2
+  states.filter(e => e.entity_id.includes('co2') && parseFloat(e.state) > 1000)
+    .forEach(e => items.push({ dot: 'dot-orange', title: 'High CO₂: ' + friendlyName(e), desc: e.state + ' ppm — ventilate the room' }));
+
+  document.getElementById('attentionBadge').textContent = items.length;
+  document.getElementById('attentionList').innerHTML = items.length === 0
+    ? '<div class="attention-item"><div class="attention-dot dot-blue"></div><div><div class="attention-title">All clear ✓</div><div class="attention-desc">No issues detected in your home.</div></div></div>'
+    : items.map(it => `<div class="attention-item">
+        <div class="attention-dot ${it.dot}"></div>
+        <div><div class="attention-title">${it.title}</div><div class="attention-desc">${it.desc}</div></div>
+      </div>`).join('');
+}
+
+function friendlyName(entity) {
+  return entity.attributes?.friendly_name || entity.entity_id.split('.')[1].replace(/_/g,' ');
+}
+
+// ─── RENDER TIMELINE ────────────────────────────────────────
+function renderTimeline(events) {
+  if (!events || events.length === 0) {
+    document.getElementById('timeline').innerHTML =
+      '<div class="empty-timeline"><i data-lucide="clock" width="32" height="32"></i><p style="margin-top:var(--space-3)">No events found for today yet.</p></div>';
+    lucide.createIcons();
+    return;
   }
 
-  // Sidebar nav
-  function setPage(page) {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-  }
+  // Sort newest first
+  const sorted = [...events].sort((a,b) => new Date(b.when||b.last_changed||0) - new Date(a.when||a.last_changed||0));
 
-  // Coach actions
-  function acceptCoach(btn) {
-    const item = btn.closest('.coach-item');
-    item.style.opacity = '0.4';
-    item.style.pointerEvents = 'none';
-    btn.textContent = '✓ Added';
-  }
-  function dismissCoach(btn) {
-    btn.closest('.coach-item').remove();
-  }
+  const html = sorted.slice(0, 50).map(ev => {
+    const time = new Date(ev.when || ev.last_changed || Date.now());
+    const timeStr = time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    const name = ev.name || ev.attributes?.friendly_name || ev.entity_id || 'Unknown entity';
+    const state = ev.state || ev.message || '';
+    const domain = (ev.entity_id || '').split('.')[0];
+    const iconClass = getIconClass(domain, state);
+    const icon = getIcon(domain);
+    const tag = ev.context_user_id ? 'tag-manual' : 'tag-auto';
+    const tagLabel = ev.context_user_id ? 'Manual' : 'Automation';
 
-  // Modal
-  function openModal() { document.getElementById('modal').classList.add('open'); }
-  function closeModal() { document.getElementById('modal').classList.remove('open'); }
-  function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    return `<div class="event-item" onclick="toggleExpand(this)">
+      <div class="event-icon ${iconClass}"><i data-lucide="${icon}" width="16" height="16"></i></div>
+      <div class="event-body">
+        <div class="event-summary"><strong>${escHtml(name)}</strong> → ${escHtml(state)}</div>
+        <div class="event-meta">
+          <span class="event-time">${timeStr}</span>
+          <span class="event-tag ${tag}">${tagLabel}</span>
+        </div>
+        <div class="event-why">Entity: ${escHtml(ev.entity_id||'—')} · State changed to <strong>${escHtml(state)}</strong> at ${timeStr}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('timeline').innerHTML = '<div class="timeline-group"><div class="timeline-date">Today</div>' + html + '</div>';
+  lucide.createIcons();
+}
+
+function prependTimelineEvent(data) {
+  const tl = document.getElementById('timeline');
+  if (tl.querySelector('.empty-timeline')) { fetchLogbook(); return; }
+  const grp = tl.querySelector('.timeline-group');
+  if (!grp) return;
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  const name = data.new_state?.attributes?.friendly_name || data.entity_id;
+  const state = data.new_state?.state || '';
+  const domain = data.entity_id.split('.')[0];
+  const el = document.createElement('div');
+  el.className = 'event-item';
+  el.onclick = function(){ toggleExpand(this); };
+  el.innerHTML = `
+    <div class="event-icon ${getIconClass(domain, state)}"><i data-lucide="${getIcon(domain)}" width="16" height="16"></i></div>
+    <div class="event-body">
+      <div class="event-summary"><strong>${escHtml(name)}</strong> → ${escHtml(state)}</div>
+      <div class="event-meta"><span class="event-time">${timeStr}</span><span class="event-tag tag-auto">Live</span></div>
+      <div class="event-why">Entity: ${escHtml(data.entity_id)} · Changed to <strong>${escHtml(state)}</strong> just now</div>
+    </div>`;
+  grp.insertBefore(el, grp.querySelector('.event-item'));
+  lucide.createIcons();
+}
+
+function getIconClass(domain, state) {
+  if (domain === 'climate' || domain === 'sensor' && state.includes('°')) return 'climate';
+  if (domain === 'binary_sensor' || domain === 'lock' || domain === 'cover') return 'door';
+  if (domain === 'light' || domain === 'switch') return 'light';
+  if (domain === 'person' || domain === 'device_tracker') return 'motion';
+  if (domain === 'alarm_control_panel') return 'security';
+  if (domain === 'automation' || domain === 'scene') return 'power';
+  return '';
+}
+function getIcon(domain) {
+  const map = { climate:'thermometer-sun', sensor:'activity', binary_sensor:'door-open', lock:'lock', cover:'door-open', light:'sun', switch:'zap', person:'user', device_tracker:'map-pin', alarm_control_panel:'shield', automation:'zap', scene:'sparkles', media_player:'tv' };
+  return map[domain] || 'circle-dot';
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── RESET UI ───────────────────────────────────────────────
+function resetUI() {
+  document.getElementById('timeline').innerHTML = '<div class="empty-timeline"><i data-lucide="plug" width="32" height="32"></i><p style="margin-top:var(--space-3)">Connect to Home Assistant to see your live timeline</p><button class="btn-xs btn-accept" style="margin-top:var(--space-4)" onclick="openModal()">Connect now</button></div>';
+  document.getElementById('kpiAutomations').innerHTML = '<div class="skeleton skeleton-value"></div>';
+  document.getElementById('kpiTemp').innerHTML = '<div class="skeleton skeleton-value"></div>';
+  document.getElementById('kpiDoors').innerHTML = '<div class="skeleton skeleton-value"></div>';
+  document.getElementById('kpiEntities').innerHTML = '<div class="skeleton skeleton-value"></div>';
+  lucide.createIcons();
+}
+
+// ─── UI HELPERS ─────────────────────────────────────────────
+function refreshTimeline() { if (haWs && haWs.readyState === 1) fetchLogbook(); }
+function toggleExpand(el) { el.classList.toggle('expanded'); }
+function switchTab(btn, tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); activeTab = tab;
+}
+function setFilter(btn, period) {
+  document.querySelectorAll('.time-filter button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); activeFilter = period;
+  if (haWs && haWs.readyState === 1) fetchLogbook();
+}
+function acceptCoach(btn) { const i = btn.closest('.coach-item'); i.style.opacity='0.4'; i.style.pointerEvents='none'; btn.textContent='✓ Added'; }
+function dismissCoach(btn) { btn.closest('.coach-item').remove(); }
+function showModalError(msg) {
+  const e = document.getElementById('modalError');
+  e.textContent = msg; e.classList.add('show');
+  const btn = document.getElementById('connectBtn');
+  btn.textContent = 'Retry'; btn.disabled = false;
+}
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+  // Pre-fill URL if known
+  if (haUrl) document.getElementById('haUrl').value = haUrl;
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>
