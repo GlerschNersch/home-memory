@@ -20,15 +20,22 @@
       --color-success: #437a22; --color-success-highlight: #d4dfcc;
       --color-orange: #da7101; --color-orange-highlight: #e7d7c4;
       --color-blue: #006494; --color-blue-highlight: #c6d8e4;
-      --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06); --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08); --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.12);
+      --color-gold: #b08a00; --color-gold-highlight: #e9e0c6;
+      --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06);
+      --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08);
+      --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.12);
       --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem; --radius-xl: 1rem; --radius-full: 9999px;
       --font-body: 'Inter', sans-serif; --font-display: 'Instrument Serif', Georgia, serif;
-      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
       --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
-      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+      --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+      --space-12: 3rem; --space-16: 4rem;
       --content-default: 1100px; --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --topbar-h: 56px;
     }
     [data-theme="dark"] {
       --color-bg: #121210; --color-surface: #1a1917; --color-surface-2: #1f1e1c;
@@ -41,134 +48,263 @@
       --color-success: #6daa45; --color-success-highlight: #1e2d18;
       --color-orange: #fdab43; --color-orange-highlight: #352710;
       --color-blue: #5591c7; --color-blue-highlight: #1a2a38;
-      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.25); --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35); --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.45);
+      --color-gold: #e8af34; --color-gold-highlight: #4d4332;
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.25);
+      --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
+      --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.45);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-    body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); display: flex; flex-direction: column; transition: background var(--transition), color var(--transition); }
+    body {
+      min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base);
+      color: var(--color-text); background: var(--color-bg);
+      transition: background var(--transition), color var(--transition);
+    }
     button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
     :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
     a { color: inherit; text-decoration: none; }
     input, select { font: inherit; }
 
-    /* LAYOUT */
-    .app { display: grid; grid-template-columns: 240px 1fr; grid-template-rows: auto 1fr; min-height: 100dvh; }
-    .topbar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-6); border-bottom: 1px solid var(--color-border); background: var(--color-surface); position: sticky; top: 0; z-index: 100; gap: var(--space-4); }
-    .sidebar { grid-row: 2; background: var(--color-surface); border-right: 1px solid var(--color-border); padding: var(--space-6) 0; display: flex; flex-direction: column; gap: var(--space-1); position: sticky; top: 57px; height: calc(100dvh - 57px); overflow-y: auto; }
+    /* ── LAYOUT ──────────────────────────────── */
+    .app { display: grid; grid-template-columns: 240px 1fr; grid-template-rows: var(--topbar-h) 1fr; min-height: 100dvh; }
+    .topbar {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--space-6); height: var(--topbar-h);
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface);
+      position: sticky; top: 0; z-index: 100;
+      gap: var(--space-4);
+    }
+    .sidebar {
+      grid-row: 2;
+      background: var(--color-surface); border-right: 1px solid var(--color-border);
+      padding: var(--space-5) 0; display: flex; flex-direction: column; gap: var(--space-1);
+      position: sticky; top: var(--topbar-h); height: calc(100dvh - var(--topbar-h));
+      overflow-y: auto;
+    }
     .main { grid-row: 2; padding: var(--space-8); overflow-y: auto; }
 
-    /* TOPBAR */
-    .logo { display: flex; align-items: center; gap: var(--space-3); }
-    .logo-mark { width: 32px; height: 32px; }
+    /* ── TOPBAR ──────────────────────────────── */
+    .logo { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
+    .logo-mark { width: 30px; height: 30px; }
     .logo-text { font-family: var(--font-display); font-size: var(--text-lg); line-height: 1; }
     .logo-text span { color: var(--color-primary); }
-    .topbar-right { display: flex; align-items: center; gap: var(--space-3); }
-    .ha-status { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--color-text-muted); background: var(--color-surface-offset); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); border: 1px solid var(--color-border); cursor: pointer; transition: background var(--transition); }
+    .topbar-center { flex: 1; max-width: 380px; margin: 0 var(--space-4); position: relative; }
+    .global-search {
+      width: 100%; padding: var(--space-2) var(--space-3) var(--space-2) 34px;
+      background: var(--color-surface-offset); border: 1px solid var(--color-border);
+      border-radius: var(--radius-full); color: var(--color-text); font-size: var(--text-sm);
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .global-search::placeholder { color: var(--color-text-faint); }
+    .global-search:focus { outline: none; border-color: var(--color-primary); background: var(--color-surface); }
+    .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--color-text-faint); pointer-events: none; }
+    .topbar-right { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+    .ha-status {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); color: var(--color-text-muted);
+      background: var(--color-surface-offset); padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full); border: 1px solid var(--color-border);
+      cursor: pointer; transition: background var(--transition); white-space: nowrap;
+    }
     .ha-status:hover { background: var(--color-surface-dynamic); }
     .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-text-faint); flex-shrink: 0; transition: background var(--transition); }
     .status-dot.connected { background: var(--color-success); box-shadow: 0 0 0 2px var(--color-success-highlight); }
     .status-dot.connecting { background: var(--color-orange); animation: pulse 1.2s ease-in-out infinite; }
     .status-dot.error { background: var(--color-error); }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    .icon-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--radius-md); color: var(--color-text-muted); transition: background var(--transition), color var(--transition); }
+    .icon-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: var(--radius-md);
+      color: var(--color-text-muted); transition: background var(--transition), color var(--transition);
+    }
     .icon-btn:hover { background: var(--color-surface-offset); color: var(--color-text); }
+    .hamburger { display: none; }
 
-    /* SIDEBAR */
+    /* ── SIDEBAR ─────────────────────────────── */
     .nav-section { padding: 0 var(--space-4) var(--space-2); margin-top: var(--space-2); }
     .nav-section-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.08em; padding: 0 var(--space-2) var(--space-1); }
-    .nav-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); color: var(--color-text-muted); font-size: var(--text-sm); cursor: pointer; transition: background var(--transition), color var(--transition); }
+    .nav-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-3); border-radius: var(--radius-md);
+      color: var(--color-text-muted); font-size: var(--text-sm);
+      cursor: pointer; transition: background var(--transition), color var(--transition);
+      user-select: none;
+    }
     .nav-item:hover { background: var(--color-surface-offset); color: var(--color-text); }
     .nav-item.active { background: var(--color-primary-highlight); color: var(--color-primary); font-weight: 500; }
-    .nav-badge { margin-left: auto; font-size: var(--text-xs); background: var(--color-error); color: var(--color-text-inverse); border-radius: var(--radius-full); padding: 1px 7px; font-weight: 600; }
+    .nav-badge {
+      margin-left: auto; font-size: var(--text-xs); background: var(--color-error);
+      color: white; border-radius: var(--radius-full); padding: 1px 7px; font-weight: 600;
+      min-width: 20px; text-align: center; display: none;
+    }
+    .nav-badge.visible { display: block; }
     .nav-badge.warn { background: var(--color-warning); }
     .sidebar-footer { margin-top: auto; padding: var(--space-4); border-top: 1px solid var(--color-border); }
 
-    /* PAGE HEADER */
+    /* ── PAGE HEADER ─────────────────────────── */
     .page-header { margin-bottom: var(--space-8); }
     .page-title { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 400; color: var(--color-text); line-height: 1.2; }
     .page-subtitle { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-1); }
     .page-header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
     .time-filter { display: flex; gap: var(--space-1); background: var(--color-surface-offset); border-radius: var(--radius-md); padding: 3px; border: 1px solid var(--color-border); }
     .time-filter button { font-size: var(--text-xs); padding: var(--space-1) var(--space-3); border-radius: calc(var(--radius-md) - 3px); color: var(--color-text-muted); transition: background var(--transition), color var(--transition); }
-    .time-filter button.active { background: var(--color-surface-2); color: var(--color-text); box-shadow: var(--shadow-sm); }
+    .time-filter button.active { background: var(--color-surface-2); color: var(--color-text); box-shadow: var(--shadow-sm); font-weight: 500; }
 
-    /* KPI STRIP */
+    /* ── KPI STRIP ───────────────────────────── */
     .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-8); }
-    .kpi-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); box-shadow: var(--shadow-sm); }
+    .kpi-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); padding: var(--space-5);
+      display: flex; flex-direction: column; gap: var(--space-2);
+      box-shadow: var(--shadow-sm);
+      animation: fadeSlideIn 0.3s ease both;
+    }
+    .kpi-card:nth-child(2) { animation-delay: 0.05s; }
+    .kpi-card:nth-child(3) { animation-delay: 0.1s; }
+    .kpi-card:nth-child(4) { animation-delay: 0.15s; }
     .kpi-label { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
     .kpi-value { font-size: var(--text-xl); font-weight: 600; line-height: 1; color: var(--color-text); font-variant-numeric: tabular-nums; }
-    .kpi-change { font-size: var(--text-xs); display: flex; align-items: center; gap: var(--space-1); color: var(--color-text-muted); }
+    .kpi-change { font-size: var(--text-xs); color: var(--color-text-muted); display: flex; align-items: center; gap: var(--space-1); }
+    .kpi-change.good { color: var(--color-success); }
+    .kpi-change.warn { color: var(--color-warning); }
     .kpi-icon { width: 32px; height: 32px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-1); }
     .kpi-icon.teal { background: var(--color-primary-highlight); color: var(--color-primary); }
     .kpi-icon.orange { background: var(--color-orange-highlight); color: var(--color-orange); }
     .kpi-icon.blue { background: var(--color-blue-highlight); color: var(--color-blue); }
     .kpi-icon.green { background: var(--color-success-highlight); color: var(--color-success); }
 
-    /* SKELETON */
+    /* ── SKELETON ────────────────────────────── */
     @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-    .skeleton { background: linear-gradient(90deg,var(--color-surface-offset) 25%,var(--color-surface-dynamic) 50%,var(--color-surface-offset) 75%); background-size:200% 100%; animation:shimmer 1.5s ease-in-out infinite; border-radius:var(--radius-sm); }
-    .skeleton-text { height: 1em; margin-bottom: var(--space-2); }
-    .skeleton-value { height: 2em; width: 60%; margin-bottom: var(--space-1); }
+    .skeleton {
+      background: linear-gradient(90deg,var(--color-surface-offset) 25%,var(--color-surface-dynamic) 50%,var(--color-surface-offset) 75%);
+      background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: var(--radius-sm);
+    }
+    .skeleton-value { height: 1.8em; width: 55%; }
+    .skeleton-text { height: 1em; }
 
-    /* MAIN GRID */
+    /* ── CONTENT GRID ────────────────────────── */
     .content-grid { display: grid; grid-template-columns: 1fr 340px; gap: var(--space-6); }
 
-    /* SECTION CARD */
-    .section-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; }
-    .card-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--color-divider); gap: var(--space-4); }
+    /* ── SECTION CARD ────────────────────────── */
+    .section-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden;
+      animation: fadeSlideIn 0.35s ease both;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--color-divider);
+      gap: var(--space-4);
+    }
     .card-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); display: flex; align-items: center; gap: var(--space-2); }
-    .card-action { font-size: var(--text-xs); color: var(--color-primary); cursor: pointer; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); transition: background var(--transition); }
+    .card-title-count { background: var(--color-surface-offset); color: var(--color-text-muted); font-size: var(--text-xs); padding: 1px 7px; border-radius: var(--radius-full); font-weight: 500; }
+    .card-action { font-size: var(--text-xs); color: var(--color-primary); cursor: pointer; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); transition: background var(--transition); border: none; background: none; }
     .card-action:hover { background: var(--color-primary-highlight); }
 
-    /* TIMELINE */
-    .timeline { padding: var(--space-2) 0; max-height: 600px; overflow-y: auto; }
+    /* ── TIMELINE SEARCH + TABS ──────────────── */
+    .timeline-toolbar { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); display: flex; flex-direction: column; gap: var(--space-3); }
+    .timeline-search-wrap { position: relative; }
+    .timeline-search {
+      width: 100%; padding: var(--space-2) var(--space-3) var(--space-2) 32px;
+      background: var(--color-surface-offset); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-sm);
+      transition: border-color var(--transition);
+    }
+    .timeline-search:focus { outline: none; border-color: var(--color-primary); }
+    .timeline-search::placeholder { color: var(--color-text-faint); }
+    .tl-search-icon { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--color-text-faint); pointer-events: none; }
+    .tab-bar { display: flex; gap: var(--space-1); }
+    .tab-btn {
+      font-size: var(--text-xs); padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full); color: var(--color-text-muted);
+      background: var(--color-surface-offset); border: 1px solid var(--color-border);
+      cursor: pointer; transition: background var(--transition), color var(--transition), border-color var(--transition);
+    }
+    .tab-btn.active { background: var(--color-primary-highlight); color: var(--color-primary); border-color: var(--color-primary-highlight); font-weight: 500; }
+
+    /* ── TIMELINE ────────────────────────────── */
+    .timeline { max-height: 560px; overflow-y: auto; }
     .timeline-group { padding: 0 var(--space-5); }
-    .timeline-date { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.07em; padding: var(--space-3) 0 var(--space-2); }
-    .event-item { display: grid; grid-template-columns: 36px 1fr; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); cursor: pointer; transition: background var(--transition); border-radius: var(--radius-md); }
+    .timeline-date {
+      font-size: var(--text-xs); font-weight: 600; color: var(--color-text-faint);
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: var(--space-3) 0 var(--space-2); position: sticky; top: 0;
+      background: var(--color-surface); z-index: 1;
+    }
+    .event-item {
+      display: grid; grid-template-columns: 36px 1fr; gap: var(--space-3);
+      padding: var(--space-3) var(--space-2); cursor: pointer;
+      transition: background var(--transition); border-radius: var(--radius-md);
+      border-bottom: 1px solid var(--color-divider);
+      animation: fadeSlideIn 0.2s ease both;
+    }
     .event-item:last-child { border-bottom: none; }
-    .event-item:hover { background: var(--color-surface-offset); margin: 0 calc(-1 * var(--space-2)); padding: var(--space-3) var(--space-2); }
-    .event-icon { width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--color-surface-offset); color: var(--color-text-muted); }
+    .event-item:hover { background: var(--color-surface-offset); }
+    .event-item.hidden { display: none; }
+    .event-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; background: var(--color-surface-offset); color: var(--color-text-muted);
+    }
     .event-icon.climate { background: var(--color-orange-highlight); color: var(--color-orange); }
     .event-icon.door { background: var(--color-blue-highlight); color: var(--color-blue); }
     .event-icon.motion { background: var(--color-primary-highlight); color: var(--color-primary); }
-    .event-icon.light { background: #2d2a18; color: #e8c84a; }
-    [data-theme="light"] .event-icon.light { background: #f5f0d0; color: #b08a00; }
+    .event-icon.light { background: var(--color-gold-highlight); color: var(--color-gold); }
     .event-icon.security { background: var(--color-error-highlight); color: var(--color-error); }
     .event-icon.power { background: var(--color-success-highlight); color: var(--color-success); }
     .event-summary { font-size: var(--text-sm); color: var(--color-text); line-height: 1.4; }
     .event-summary strong { font-weight: 600; }
-    .event-meta { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-1); }
+    .event-meta { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-1); flex-wrap: wrap; }
     .event-time { font-size: var(--text-xs); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
     .event-tag { font-size: var(--text-xs); padding: 1px var(--space-2); border-radius: var(--radius-full); font-weight: 500; }
     .tag-auto { background: var(--color-primary-highlight); color: var(--color-primary); }
     .tag-alert { background: var(--color-warning-highlight); color: var(--color-warning); }
     .tag-manual { background: var(--color-surface-dynamic); color: var(--color-text-muted); }
-    .event-why { margin-top: var(--space-2); font-size: var(--text-xs); color: var(--color-text-muted); background: var(--color-surface-offset); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); display: none; line-height: 1.5; border-left: 2px solid var(--color-primary); }
+    .tag-live { background: var(--color-success-highlight); color: var(--color-success); }
+    .event-why {
+      margin-top: var(--space-2); font-size: var(--text-xs); color: var(--color-text-muted);
+      background: var(--color-surface-offset); border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-3); display: none; line-height: 1.6;
+      border-left: 2px solid var(--color-primary);
+    }
     .event-item.expanded .event-why { display: block; }
+    .event-why-label { font-weight: 600; color: var(--color-text); display: block; margin-bottom: 2px; }
     .empty-timeline { text-align: center; padding: var(--space-12) var(--space-8); color: var(--color-text-muted); font-size: var(--text-sm); }
-    .empty-timeline svg { margin: 0 auto var(--space-4); color: var(--color-text-faint); }
+    .empty-timeline .empty-icon { margin: 0 auto var(--space-4); color: var(--color-text-faint); }
+    .no-results { text-align: center; padding: var(--space-8); color: var(--color-text-muted); font-size: var(--text-sm); display: none; }
+    .no-results.visible { display: block; }
 
-    /* ATTENTION */
+    /* ── ATTENTION ───────────────────────────── */
     .attention-list { padding: var(--space-2) var(--space-4); }
     .attention-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3) var(--space-1); border-bottom: 1px solid var(--color-divider); }
     .attention-item:last-child { border-bottom: none; }
     .attention-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-    .dot-red { background: var(--color-error); } .dot-orange { background: var(--color-orange); } .dot-yellow { background: #e8c84a; } .dot-blue { background: var(--color-blue); }
+    .dot-red { background: var(--color-error); }
+    .dot-orange { background: var(--color-orange); }
+    .dot-yellow { background: var(--color-gold); }
+    .dot-blue { background: var(--color-blue); }
+    .dot-green { background: var(--color-success); }
     .attention-title { font-size: var(--text-sm); color: var(--color-text); font-weight: 500; line-height: 1.3; }
     .attention-desc { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
 
-    /* ROOM GRID */
+    /* ── ROOM GRID ───────────────────────────── */
     .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); padding: var(--space-4); }
-    .room-tile { background: var(--color-surface-offset); border-radius: var(--radius-lg); padding: var(--space-4); border: 1px solid var(--color-border); cursor: pointer; transition: background var(--transition), box-shadow var(--transition); }
+    .room-tile {
+      background: var(--color-surface-offset); border-radius: var(--radius-lg);
+      padding: var(--space-4); border: 1px solid var(--color-border);
+      cursor: pointer; transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
     .room-tile:hover { background: var(--color-surface-dynamic); box-shadow: var(--shadow-md); }
     .room-tile.active-room { border-color: var(--color-primary); background: var(--color-primary-highlight); }
     .room-name { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
     .room-stat { font-size: var(--text-base); font-weight: 600; color: var(--color-text); }
     .room-sub { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
 
-    /* COACH */
+    /* ── COACH ───────────────────────────────── */
     .coach-list { padding: var(--space-2) var(--space-4); }
-    .coach-item { padding: var(--space-3) var(--space-1); border-bottom: 1px solid var(--color-divider); }
+    .coach-item { padding: var(--space-3) var(--space-1); border-bottom: 1px solid var(--color-divider); transition: opacity var(--transition); }
     .coach-item:last-child { border-bottom: none; }
     .coach-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
     .coach-title { font-size: var(--text-sm); color: var(--color-text); font-weight: 500; }
@@ -176,32 +312,56 @@
     .coach-desc { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 3px; line-height: 1.5; }
     .coach-actions { display: flex; gap: var(--space-2); margin-top: var(--space-2); }
     .btn-xs { font-size: var(--text-xs); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-weight: 500; cursor: pointer; transition: background var(--transition), color var(--transition); border: 1px solid; }
-    .btn-accept { background: var(--color-primary); color: var(--color-text-inverse); border-color: var(--color-primary); }
+    .btn-accept { background: var(--color-primary); color: white; border-color: var(--color-primary); }
     .btn-accept:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
     .btn-dismiss { background: transparent; color: var(--color-text-muted); border-color: var(--color-border); }
     .btn-dismiss:hover { background: var(--color-surface-offset); }
     .right-col { display: flex; flex-direction: column; gap: var(--space-6); }
-    .tab-bar { display: flex; border-bottom: 1px solid var(--color-divider); padding: 0 var(--space-4); }
-    .tab-btn { font-size: var(--text-sm); padding: var(--space-3) var(--space-4); color: var(--color-text-muted); border-bottom: 2px solid transparent; cursor: pointer; transition: color var(--transition), border-color var(--transition); margin-bottom: -1px; }
-    .tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 500; }
 
-    /* MODAL */
-    .modal-overlay { position: fixed; inset: 0; background: oklch(0 0 0 / 0.5); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: var(--space-4); opacity: 0; pointer-events: none; transition: opacity var(--transition); }
+    /* ── MODAL ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: oklch(0 0 0 / 0.55);
+      backdrop-filter: blur(4px); z-index: 200;
+      display: flex; align-items: center; justify-content: center; padding: var(--space-4);
+      opacity: 0; pointer-events: none; transition: opacity var(--transition);
+    }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); width: 100%; max-width: 500px; padding: var(--space-6); }
+    .modal {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);
+      width: 100%; max-width: 500px; padding: var(--space-6);
+      transform: translateY(8px); transition: transform var(--transition);
+    }
+    .modal-overlay.open .modal { transform: none; }
     .modal-title { font-family: var(--font-display); font-size: var(--text-lg); margin-bottom: var(--space-2); }
     .modal-subtitle { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-5); line-height: 1.5; }
     .form-label { display: block; font-size: var(--text-sm); font-weight: 500; margin-bottom: var(--space-2); }
-    .form-input { width: 100%; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface-offset); color: var(--color-text); font-size: var(--text-sm); margin-bottom: var(--space-4); transition: border-color var(--transition); }
+    .form-input {
+      width: 100%; padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md); border: 1px solid var(--color-border);
+      background: var(--color-surface-offset); color: var(--color-text); font-size: var(--text-sm);
+      margin-bottom: var(--space-4); transition: border-color var(--transition);
+    }
     .form-input:focus { outline: none; border-color: var(--color-primary); }
     .form-hint { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: calc(-1 * var(--space-3)); margin-bottom: var(--space-4); line-height: 1.5; }
-    .modal-footer { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-6); }
-    .modal-error { font-size: var(--text-xs); color: var(--color-error); display: none; }
+    .modal-footer { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-6); gap: var(--space-3); }
+    .modal-error { font-size: var(--text-xs); color: var(--color-error); display: none; flex: 1; }
     .modal-error.show { display: block; }
-    .btn-primary { font-size: var(--text-sm); padding: var(--space-2) var(--space-6); background: var(--color-primary); color: var(--color-text-inverse); border-radius: var(--radius-full); font-weight: 500; border: none; cursor: pointer; transition: background var(--transition); min-width: 100px; }
+    .modal-actions { display: flex; gap: var(--space-2); align-items: center; }
+    .btn-primary {
+      font-size: var(--text-sm); padding: var(--space-2) var(--space-6);
+      background: var(--color-primary); color: white; border-radius: var(--radius-full);
+      font-weight: 500; border: none; cursor: pointer; transition: background var(--transition);
+      min-width: 100px;
+    }
     .btn-primary:hover { background: var(--color-primary-hover); }
-    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-    .btn-secondary { font-size: var(--text-sm); padding: var(--space-2) var(--space-4); background: transparent; color: var(--color-text-muted); border-radius: var(--radius-full); font-weight: 500; border: 1px solid var(--color-border); cursor: pointer; transition: background var(--transition); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary {
+      font-size: var(--text-sm); padding: var(--space-2) var(--space-4);
+      background: transparent; color: var(--color-text-muted); border-radius: var(--radius-full);
+      font-weight: 500; border: 1px solid var(--color-border); cursor: pointer;
+      transition: background var(--transition);
+    }
     .btn-secondary:hover { background: var(--color-surface-offset); }
     .connect-steps { background: var(--color-surface-offset); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-5); border: 1px solid var(--color-border); }
     .connect-step { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.6; display: flex; gap: var(--space-2); }
@@ -210,76 +370,129 @@
     .disconnect-btn { font-size: var(--text-xs); color: var(--color-error); cursor: pointer; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); transition: background var(--transition); border: none; background: none; }
     .disconnect-btn:hover { background: var(--color-error-highlight); }
 
-    /* ANIMATIONS */
-    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    .section-card { animation: fadeSlideIn 0.35s ease both; }
-    .kpi-card { animation: fadeSlideIn 0.3s ease both; }
-    .kpi-card:nth-child(2) { animation-delay: 0.05s; } .kpi-card:nth-child(3) { animation-delay: 0.1s; } .kpi-card:nth-child(4) { animation-delay: 0.15s; }
-    .event-item { animation: fadeSlideIn 0.2s ease both; }
-
-    /* MOBILE */
+    /* ── MOBILE DRAWER ───────────────────────── */
+    .mobile-overlay { display: none; position: fixed; inset: 0; background: oklch(0 0 0 / 0.4); z-index: 50; }
+    .mobile-overlay.open { display: block; }
     @media (max-width: 900px) {
       .app { grid-template-columns: 1fr; }
-      .sidebar { display: none; }
+      .sidebar {
+        position: fixed; left: 0; top: var(--topbar-h);
+        height: calc(100dvh - var(--topbar-h)); z-index: 60;
+        transform: translateX(-100%); transition: transform var(--transition);
+        box-shadow: var(--shadow-lg);
+      }
+      .sidebar.open { transform: none; }
+      .hamburger { display: flex; }
+      .topbar-center { max-width: none; flex: 1; }
       .kpi-grid { grid-template-columns: 1fr 1fr; }
       .content-grid { grid-template-columns: 1fr; }
-      .main { padding: var(--space-4); }
+      .main { padding: var(--space-4); grid-row: 2; }
     }
-    @media (max-width: 500px) { .kpi-grid { gap: var(--space-3); } }
+    @media (max-width: 500px) {
+      .kpi-grid { gap: var(--space-3); }
+      .kpi-value { font-size: var(--text-lg); }
+      .topbar { padding: 0 var(--space-4); }
+      .ha-status span:last-child { display: none; } /* hide label on small */
+    }
+
+    /* ── ANIMATIONS ──────────────────────────── */
+    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* ── SCROLLBAR ───────────────────────────── */
+    .timeline::-webkit-scrollbar { width: 4px; }
+    .timeline::-webkit-scrollbar-track { background: transparent; }
+    .timeline::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
   </style>
 </head>
 <body>
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeSidebar()"></div>
 <div class="app">
-  <!-- TOPBAR -->
+
+  <!-- ── TOPBAR ── -->
   <header class="topbar">
-    <div class="logo">
-      <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-label="Home Memory logo">
-        <rect width="32" height="32" rx="8" fill="currentColor" opacity="0.08"/>
-        <path d="M16 5L4 14v13h7v-8h10v8h7V14L16 5z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
-        <circle cx="16" cy="15" r="2.5" fill="currentColor" opacity="0.6"/>
-      </svg>
-      <span class="logo-text">Home<span>Memory</span></span>
+    <div style="display:flex;align-items:center;gap:var(--space-3);">
+      <button class="icon-btn hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="logo">
+        <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-label="Home Memory logo">
+          <rect width="32" height="32" rx="8" fill="currentColor" opacity="0.08"/>
+          <path d="M16 5L4 14v13h7v-8h10v8h7V14L16 5z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+          <circle cx="16" cy="15" r="2.5" fill="currentColor" opacity="0.6"/>
+        </svg>
+        <span class="logo-text">Home<span>Memory</span></span>
+      </div>
+    </div>
+    <div class="topbar-center">
+      <div style="position:relative;">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="global-search" id="globalSearch" type="search" placeholder="Search entities, automations…" oninput="globalSearchFilter(this.value)" autocomplete="off" spellcheck="false">
+      </div>
     </div>
     <div class="topbar-right">
       <button class="ha-status" id="haStatusBtn" onclick="openModal()" aria-label="HA connection status">
         <div class="status-dot" id="statusDot"></div>
         <span id="statusLabel">Not connected</span>
       </button>
-      <button class="icon-btn" onclick="openModal()" aria-label="Settings"><i data-lucide="settings" width="18" height="18"></i></button>
-      <button class="icon-btn" data-theme-toggle aria-label="Toggle theme"><i data-lucide="moon" width="18" height="18"></i></button>
+      <button class="icon-btn" onclick="openModal()" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button class="icon-btn" data-theme-toggle aria-label="Toggle theme"></button>
     </div>
   </header>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
     <div class="nav-section">
       <div class="nav-section-label">Overview</div>
-      <div class="nav-item active"><i data-lucide="activity" width="16" height="16"></i> Timeline</div>
-      <div class="nav-item"><i data-lucide="bell" width="16" height="16"></i> Attention Center <span class="nav-badge warn" id="attentionBadge">0</span></div>
-      <div class="nav-item"><i data-lucide="zap" width="16" height="16"></i> Routine Coach</div>
+      <div class="nav-item active" onclick="navClick(this,'timeline')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Timeline
+      </div>
+      <div class="nav-item" onclick="navClick(this,'attention')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Attention Center
+        <span class="nav-badge warn" id="attentionBadge">0</span>
+      </div>
+      <div class="nav-item" onclick="navClick(this,'coach')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Routine Coach
+      </div>
     </div>
     <div class="nav-section">
       <div class="nav-section-label">Entities</div>
-      <div class="nav-item"><i data-lucide="thermometer" width="16" height="16"></i> Climate</div>
-      <div class="nav-item"><i data-lucide="shield" width="16" height="16"></i> Security</div>
-      <div class="nav-item"><i data-lucide="sun" width="16" height="16"></i> Lights</div>
+      <div class="nav-item" onclick="navClick(this,'climate')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+        Climate
+      </div>
+      <div class="nav-item" onclick="navClick(this,'security')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Security
+      </div>
+      <div class="nav-item" onclick="navClick(this,'lights')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        Lights
+      </div>
     </div>
     <div class="sidebar-footer">
-      <div class="nav-item" onclick="openModal()"><i data-lucide="plug" width="16" height="16"></i> <span id="sidebarConnectLabel">Connect HA</span></div>
+      <div class="nav-item" onclick="openModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span id="sidebarConnectLabel">Connect HA</span>
+      </div>
     </div>
   </aside>
 
-  <!-- MAIN -->
+  <!-- ── MAIN ── -->
   <main class="main">
     <div class="page-header">
       <div class="page-header-row">
         <div>
           <h1 class="page-title" id="greeting">Good morning 👋</h1>
-          <p class="page-subtitle" id="dateSubtitle">Loading...</p>
+          <p class="page-subtitle" id="dateSubtitle">Loading…</p>
         </div>
         <div class="time-filter">
           <button onclick="setFilter(this,'today')" class="active">Today</button>
-          <button onclick="setFilter(this,'week')">Week</button>
+          <button onclick="setFilter(this,'week')">7 days</button>
         </div>
       </div>
     </div>
@@ -287,25 +500,25 @@
     <!-- KPI STRIP -->
     <div class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-icon teal"><i data-lucide="zap" width="16" height="16"></i></div>
-        <div class="kpi-label">Automations today</div>
+        <div class="kpi-icon teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="kpi-label">Automations</div>
         <div class="kpi-value" id="kpiAutomations"><div class="skeleton skeleton-value"></div></div>
         <div class="kpi-change" id="kpiAutoChange"></div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-icon orange"><i data-lucide="thermometer" width="16" height="16"></i></div>
+        <div class="kpi-icon orange"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
         <div class="kpi-label">Avg. indoor temp</div>
         <div class="kpi-value" id="kpiTemp"><div class="skeleton skeleton-value"></div></div>
         <div class="kpi-change" id="kpiTempChange"></div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-icon blue"><i data-lucide="door-open" width="16" height="16"></i></div>
+        <div class="kpi-icon blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <div class="kpi-label">Open doors/windows</div>
         <div class="kpi-value" id="kpiDoors"><div class="skeleton skeleton-value"></div></div>
         <div class="kpi-change" id="kpiDoorsChange"></div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-icon green"><i data-lucide="cpu" width="16" height="16"></i></div>
+        <div class="kpi-icon green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <div class="kpi-label">Entities online</div>
         <div class="kpi-value" id="kpiEntities"><div class="skeleton skeleton-value"></div></div>
         <div class="kpi-change" id="kpiEntitiesChange"></div>
@@ -318,30 +531,45 @@
       <div>
         <div class="section-card">
           <div class="card-header">
-            <div class="card-title"><i data-lucide="activity" width="15" height="15"></i> Home Timeline</div>
-            <span class="card-action" onclick="refreshTimeline()">Refresh</span>
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Home Timeline
+              <span class="card-title-count" id="eventCount">0 events</span>
+            </div>
+            <button class="card-action" onclick="refreshTimeline()">↻ Refresh</button>
           </div>
-          <div class="tab-bar">
-            <button class="tab-btn active" onclick="switchTab(this,'all')">All events</button>
-            <button class="tab-btn" onclick="switchTab(this,'automations')">Automations</button>
-            <button class="tab-btn" onclick="switchTab(this,'alerts')">State changes</button>
+          <div class="timeline-toolbar">
+            <div class="timeline-search-wrap">
+              <svg class="tl-search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input class="timeline-search" id="tlSearch" type="search" placeholder="Filter events…" oninput="filterTimeline()" autocomplete="off">
+            </div>
+            <div class="tab-bar">
+              <button class="tab-btn active" onclick="switchTab(this,'all')">All</button>
+              <button class="tab-btn" onclick="switchTab(this,'automation')">Automations</button>
+              <button class="tab-btn" onclick="switchTab(this,'manual')">Manual</button>
+              <button class="tab-btn" onclick="switchTab(this,'alert')">Alerts</button>
+            </div>
           </div>
           <div class="timeline" id="timeline">
             <div class="empty-timeline">
-              <i data-lucide="plug" width="32" height="32"></i>
-              <p style="margin-top:var(--space-3)">Connect to Home Assistant to see your live timeline</p>
-              <button class="btn-xs btn-accept" style="margin-top:var(--space-4)" onclick="openModal()">Connect now</button>
+              <svg class="empty-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <p style="margin-top:var(--space-3);">Connect to Home Assistant to see your live timeline</p>
+              <button class="btn-xs btn-accept" style="margin-top:var(--space-4);" onclick="openModal()">Connect now</button>
             </div>
           </div>
+          <div class="no-results" id="noResults">No events match your filter.</div>
         </div>
       </div>
 
       <!-- RIGHT COLUMN -->
       <div class="right-col">
-        <!-- ATTENTION -->
-        <div class="section-card">
+        <!-- ATTENTION CENTER -->
+        <div class="section-card" id="card-attention">
           <div class="card-header">
-            <div class="card-title"><i data-lucide="bell" width="15" height="15"></i> Attention Center</div>
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Attention Center
+            </div>
           </div>
           <div class="attention-list" id="attentionList">
             <div class="attention-item">
@@ -357,7 +585,10 @@
         <!-- ROOM SNAPSHOT -->
         <div class="section-card">
           <div class="card-header">
-            <div class="card-title"><i data-lucide="layout-grid" width="15" height="15"></i> Room Snapshot</div>
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Room Snapshot
+            </div>
           </div>
           <div class="room-grid" id="roomGrid">
             <div style="grid-column:1/-1;text-align:center;padding:var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm);">Waiting for HA connection…</div>
@@ -365,13 +596,19 @@
         </div>
 
         <!-- ROUTINE COACH -->
-        <div class="section-card">
+        <div class="section-card" id="card-coach">
           <div class="card-header">
-            <div class="card-title"><i data-lucide="sparkles" width="15" height="15"></i> Routine Coach</div>
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Routine Coach
+            </div>
           </div>
           <div class="coach-list" id="coachList">
             <div class="coach-item">
-              <div class="coach-header"><div class="coach-title">Auto-close garage at 9 PM</div><span class="coach-confidence">94% match</span></div>
+              <div class="coach-header">
+                <div class="coach-title">Auto-close garage at 9 PM</div>
+                <span class="coach-confidence">94% match</span>
+              </div>
               <div class="coach-desc">You've manually closed the garage between 8:45–9:15 PM on 11 of the last 14 days.</div>
               <div class="coach-actions">
                 <button class="btn-xs btn-accept" onclick="acceptCoach(this)">Create automation</button>
@@ -385,30 +622,26 @@
   </main>
 </div>
 
-<!-- CONNECT MODAL -->
+<!-- ── CONNECT MODAL ── -->
 <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <div class="modal-title">Connect Home Assistant</div>
-    <div class="modal-subtitle">Home Memory connects directly to your HA instance via WebSocket. Your token is stored only in this browser session and never sent anywhere else.</div>
-
+  <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="modal-title" id="modalTitle">Connect Home Assistant</div>
+    <div class="modal-subtitle">Home Memory connects directly to your HA instance via WebSocket. Your token is kept only in browser memory — never committed to any file or sent anywhere else.</div>
     <div class="connect-steps">
       <div class="connect-step"><div class="step-num">1</div><div>Go to your HA profile (bottom-left avatar)</div></div>
       <div class="connect-step"><div class="step-num">2</div><div>Scroll to <strong>Long-Lived Access Tokens</strong> → Create Token</div></div>
-      <div class="connect-step"><div class="step-num">3</div><div>Copy it and paste it below — you only see it once</div></div>
+      <div class="connect-step"><div class="step-num">3</div><div>Copy and paste it below — you only see it once</div></div>
     </div>
-
     <label class="form-label" for="haUrl">Home Assistant URL</label>
     <input class="form-input" id="haUrl" type="text" placeholder="https://homeassistant.local:8123" autocomplete="off" spellcheck="false">
     <div class="form-hint">Your local or remote HA address (no trailing slash)</div>
-
     <label class="form-label" for="haToken">Long-Lived Access Token</label>
-    <input class="form-input" id="haToken" type="password" placeholder="eyJhbGci..." autocomplete="off" spellcheck="false">
-    <div class="form-hint">Token stays in memory only. Never committed to any file or repo.</div>
-
+    <input class="form-input" id="haToken" type="password" placeholder="eyJhbGci…" autocomplete="off" spellcheck="false">
+    <div class="form-hint">Token stays in memory only — cleared on page close.</div>
     <div class="modal-footer">
       <span class="modal-error" id="modalError"></span>
-      <div style="display:flex;gap:var(--space-3);align-items:center;">
-        <button class="btn-secondary" id="disconnectBtn" onclick="disconnect()" style="display:none;">Disconnect</button>
+      <div class="modal-actions">
+        <button class="disconnect-btn" id="disconnectBtn" onclick="disconnect()" style="display:none;">Disconnect</button>
         <button class="btn-secondary" onclick="closeModal()">Cancel</button>
         <button class="btn-primary" id="connectBtn" onclick="connect()">Connect</button>
       </div>
@@ -417,9 +650,7 @@
 </div>
 
 <script>
-lucide.createIcons();
-
-// ─── THEME TOGGLE ───────────────────────────────────────────
+// ── THEME TOGGLE ────────────────────────────────────────────
 (function(){
   const t = document.querySelector('[data-theme-toggle]');
   const r = document.documentElement;
@@ -434,133 +665,95 @@ lucide.createIcons();
   if (t) t.addEventListener('click', () => { d = d === 'dark' ? 'light' : 'dark'; r.setAttribute('data-theme', d); setIcon(d); });
 })();
 
-// ─── DATE / GREETING ────────────────────────────────────────
+// ── DATE / GREETING ─────────────────────────────────────────
 (function(){
   const now = new Date();
   const h = now.getHours();
-  const greet = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-  document.getElementById('greeting').textContent = greet + ' 👋';
+  document.getElementById('greeting').textContent =
+    (h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening') + ' 👋';
   document.getElementById('dateSubtitle').textContent =
     now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
 })();
 
-// ─── HA STATE ───────────────────────────────────────────────
-let haWs = null;
-let haUrl = '';
-let haToken = '';
-let haStates = {};
-let msgId = 1;
-let pendingCallbacks = {};
-let activeFilter = 'today';
-let activeTab = 'all';
+// ── MOBILE SIDEBAR ──────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('mobileOverlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+}
+function navClick(el, section) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  closeSidebar();
+  // Scroll to relevant section card
+  const map = { attention: 'card-attention', coach: 'card-coach' };
+  if (map[section]) document.getElementById(map[section])?.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ── HA STATE ────────────────────────────────────────────────
+let haWs = null, haUrl = '', haToken = '';
+let haStates = {}, msgId = 1, pendingCallbacks = {};
+let activeFilter = 'today', activeTab = 'all';
+let allEvents = [];
 
 function setStatus(state, label) {
-  const dot = document.getElementById('statusDot');
-  const lbl = document.getElementById('statusLabel');
-  dot.className = 'status-dot ' + state;
-  lbl.textContent = label;
+  document.getElementById('statusDot').className = 'status-dot ' + state;
+  document.getElementById('statusLabel').textContent = label;
   document.getElementById('sidebarConnectLabel').textContent = state === 'connected' ? 'Manage Connection' : 'Connect HA';
 }
 
-// ─── WEBSOCKET CONNECT ──────────────────────────────────────
+// ── WEBSOCKET CONNECT ───────────────────────────────────────
 function connect() {
   const urlInput = document.getElementById('haUrl').value.trim().replace(/\/+$/, '');
   const tokenInput = document.getElementById('haToken').value.trim();
-  const errEl = document.getElementById('modalError');
-  const btn = document.getElementById('connectBtn');
-
   if (!urlInput) { showModalError('Please enter your Home Assistant URL.'); return; }
   if (!tokenInput) { showModalError('Please enter your Long-Lived Access Token.'); return; }
-
-  errEl.classList.remove('show');
-  btn.textContent = 'Connecting…';
-  btn.disabled = true;
+  document.getElementById('modalError').classList.remove('show');
+  const btn = document.getElementById('connectBtn');
+  btn.textContent = 'Connecting…'; btn.disabled = true;
   setStatus('connecting', 'Connecting…');
-
-  haUrl = urlInput;
-  haToken = tokenInput;
-
-  // Close existing
+  haUrl = urlInput; haToken = tokenInput;
   if (haWs) { try { haWs.close(); } catch(e){} }
-
   const wsUrl = haUrl.replace(/^http/, 'ws') + '/api/websocket';
-
-  try {
-    haWs = new WebSocket(wsUrl);
-  } catch(e) {
-    connectFailed('Could not create WebSocket: ' + e.message);
-    return;
-  }
-
-  const timeout = setTimeout(() => {
-    connectFailed('Connection timed out. Check your HA URL.');
-    try { haWs.close(); } catch(e){}
-  }, 10000);
-
-  haWs.onopen = () => {};
-
+  try { haWs = new WebSocket(wsUrl); } catch(e) { connectFailed('Could not create WebSocket: ' + e.message); return; }
+  const timeout = setTimeout(() => { connectFailed('Connection timed out. Check your HA URL.'); try { haWs.close(); } catch(e){} }, 10000);
   haWs.onmessage = (raw) => {
-    let msg;
-    try { msg = JSON.parse(raw.data); } catch(e) { return; }
-
-    if (msg.type === 'auth_required') {
-      haWs.send(JSON.stringify({ type: 'auth', access_token: haToken }));
-    }
-
+    let msg; try { msg = JSON.parse(raw.data); } catch(e) { return; }
+    if (msg.type === 'auth_required') haWs.send(JSON.stringify({ type: 'auth', access_token: haToken }));
     else if (msg.type === 'auth_ok') {
       clearTimeout(timeout);
-      setStatus('connected', 'Connected to HA');
+      setStatus('connected', 'Connected');
       btn.textContent = 'Connected!';
-      document.getElementById('disconnectBtn').style.display = 'inline-flex';
-      setTimeout(closeModal, 800);
-      loadAllData();
-      subscribeEvents();
+      document.getElementById('disconnectBtn').style.display = '';
+      setTimeout(closeModal, 700);
+      loadAllData(); subscribeEvents();
     }
-
-    else if (msg.type === 'auth_invalid') {
-      clearTimeout(timeout);
-      connectFailed('Invalid token. Generate a new Long-Lived Access Token in HA.');
-    }
-
-    else if (msg.type === 'result') {
-      const cb = pendingCallbacks[msg.id];
-      if (cb) { cb(msg); delete pendingCallbacks[msg.id]; }
-    }
-
-    else if (msg.type === 'event') {
-      handleEvent(msg.event);
-    }
+    else if (msg.type === 'auth_invalid') { clearTimeout(timeout); connectFailed('Invalid token. Generate a new one in HA.'); }
+    else if (msg.type === 'result') { const cb = pendingCallbacks[msg.id]; if (cb) { cb(msg); delete pendingCallbacks[msg.id]; } }
+    else if (msg.type === 'event') handleEvent(msg.event);
   };
-
-  haWs.onerror = () => {
-    clearTimeout(timeout);
-    connectFailed('WebSocket error. Check your HA URL and that HA is reachable.');
-  };
-
-  haWs.onclose = (e) => {
-    if (document.getElementById('statusDot').classList.contains('connected')) {
-      setStatus('error', 'Disconnected');
-    }
-  };
+  haWs.onerror = () => { clearTimeout(timeout); connectFailed('WebSocket error. Check HA URL and that it is reachable.'); };
+  haWs.onclose = () => { if (document.getElementById('statusDot').classList.contains('connected')) setStatus('error', 'Disconnected'); };
 }
 
 function connectFailed(msg) {
-  setStatus('error', 'Connection failed');
+  setStatus('error', 'Failed');
   showModalError(msg);
   const btn = document.getElementById('connectBtn');
-  btn.textContent = 'Retry';
-  btn.disabled = false;
+  btn.textContent = 'Retry'; btn.disabled = false;
 }
 
 function disconnect() {
   if (haWs) { try { haWs.close(); } catch(e){} haWs = null; }
-  haStates = {};
+  haStates = {}; allEvents = [];
   setStatus('', 'Not connected');
   document.getElementById('disconnectBtn').style.display = 'none';
-  document.getElementById('connectBtn').textContent = 'Connect';
-  document.getElementById('connectBtn').disabled = false;
-  resetUI();
-  closeModal();
+  const btn = document.getElementById('connectBtn');
+  btn.textContent = 'Connect'; btn.disabled = false;
+  resetUI(); closeModal();
 }
 
 function sendMsg(payload, callback) {
@@ -571,113 +764,85 @@ function sendMsg(payload, callback) {
   haWs.send(JSON.stringify(payload));
 }
 
-// ─── LOAD ALL DATA ──────────────────────────────────────────
-function loadAllData() {
-  fetchStates();
-  fetchLogbook();
-}
+// ── LOAD DATA ───────────────────────────────────────────────
+function loadAllData() { fetchStates(); fetchLogbook(); }
 
 function fetchStates() {
   sendMsg({ type: 'get_states' }, (res) => {
     if (!res.success) return;
     haStates = {};
     res.result.forEach(e => { haStates[e.entity_id] = e; });
-    renderKPIs();
-    renderRooms();
-    renderAttention();
+    renderKPIs(); renderRooms(); renderAttention();
   });
 }
 
 function fetchLogbook() {
+  const end = new Date();
   const start = new Date();
-  start.setHours(0, 0, 0, 0);
-  sendMsg({
-    type: 'logbook/get_events',
-    start_time: start.toISOString(),
-    end_time: new Date().toISOString()
-  }, (res) => {
-    if (res.success && res.result) {
-      renderTimeline(res.result);
-    } else {
-      // Fallback: use REST API via fetch
-      fetchLogbookREST();
-    }
+  if (activeFilter === 'week') start.setDate(start.getDate() - 7);
+  else start.setHours(0, 0, 0, 0);
+  sendMsg({ type: 'logbook/get_events', start_time: start.toISOString(), end_time: end.toISOString() }, (res) => {
+    if (res.success && res.result) renderTimeline(res.result);
+    else fetchLogbookREST(start);
   });
 }
 
-function fetchLogbookREST() {
-  const start = new Date();
-  start.setHours(0,0,0,0);
-  fetch(haUrl + '/api/logbook/' + start.toISOString(), {
+function fetchLogbookREST(start) {
+  fetch(haUrl + '/api/logbook/' + (start || new Date(new Date().setHours(0,0,0,0))).toISOString(), {
     headers: { 'Authorization': 'Bearer ' + haToken }
-  })
-  .then(r => r.json())
-  .then(data => renderTimeline(data))
-  .catch(() => renderTimeline([]));
+  }).then(r => r.json()).then(data => renderTimeline(data)).catch(() => renderTimeline([]));
 }
 
 function subscribeEvents() {
-  // Subscribe to state_changed for live updates
   sendMsg({ type: 'subscribe_events', event_type: 'state_changed' });
 }
 
 function handleEvent(event) {
-  if (event.event_type === 'state_changed') {
-    const d = event.data;
-    haStates[d.entity_id] = d.new_state;
-    renderKPIs();
-    renderRooms();
-    // Prepend to timeline
-    prependTimelineEvent(d);
-  }
+  if (event.event_type !== 'state_changed') return;
+  const d = event.data;
+  if (d.new_state) haStates[d.entity_id] = d.new_state;
+  renderKPIs(); renderRooms();
+  prependTimelineEvent(d);
 }
 
-// ─── RENDER KPIs ────────────────────────────────────────────
+// ── KPIs ────────────────────────────────────────────────────
 function renderKPIs() {
   const states = Object.values(haStates);
 
-  // Avg indoor temp from climate/sensor entities
   const tempSensors = states.filter(e =>
     e.entity_id.includes('temperature') &&
     (e.entity_id.startsWith('sensor.') || e.entity_id.startsWith('climate.')) &&
     !isNaN(parseFloat(e.state))
   );
   const avgTemp = tempSensors.length
-    ? (tempSensors.reduce((s, e) => s + parseFloat(e.state), 0) / tempSensors.length)
-    : null;
+    ? tempSensors.reduce((s,e) => s + parseFloat(e.state), 0) / tempSensors.length : null;
   document.getElementById('kpiTemp').textContent = avgTemp !== null
-    ? Math.round(avgTemp) + (tempSensors[0]?.attributes?.unit_of_measurement || '°')
-    : 'N/A';
-  document.getElementById('kpiTempChange').textContent =
-    tempSensors.length + ' sensors reporting';
+    ? Math.round(avgTemp) + (tempSensors[0]?.attributes?.unit_of_measurement || '°') : 'N/A';
+  const tc = document.getElementById('kpiTempChange');
+  tc.textContent = tempSensors.length + ' sensor' + (tempSensors.length !== 1 ? 's' : '') + ' reporting';
 
-  // Open doors/windows
   const openDoors = states.filter(e =>
-    (e.entity_id.includes('door') || e.entity_id.includes('window')) &&
-    e.state === 'on'
+    (e.entity_id.includes('door') || e.entity_id.includes('window')) && e.state === 'on'
   );
   document.getElementById('kpiDoors').textContent = openDoors.length;
-  document.getElementById('kpiDoorsChange').textContent =
-    openDoors.length === 0 ? 'All closed ✓' : openDoors.length + ' currently open';
+  const dc = document.getElementById('kpiDoorsChange');
+  dc.textContent = openDoors.length === 0 ? '✓ All closed' : openDoors.length + ' open';
+  dc.className = 'kpi-change ' + (openDoors.length === 0 ? 'good' : 'warn');
 
-  // Entities online
   const unavailable = states.filter(e => e.state === 'unavailable' || e.state === 'unknown').length;
-  const total = states.length;
-  document.getElementById('kpiEntities').textContent = (total - unavailable) + '/' + total;
-  document.getElementById('kpiEntitiesChange').textContent =
-    unavailable === 0 ? 'All online ✓' : unavailable + ' unavailable';
+  document.getElementById('kpiEntities').textContent = (states.length - unavailable) + '/' + states.length;
+  const ec = document.getElementById('kpiEntitiesChange');
+  ec.textContent = unavailable === 0 ? '✓ All online' : unavailable + ' unavailable';
+  ec.className = 'kpi-change ' + (unavailable === 0 ? 'good' : 'warn');
 
-  // Automations count today (estimated from logbook data length)
   const autoCount = states.filter(e => e.entity_id.startsWith('automation.')).length;
   document.getElementById('kpiAutomations').textContent = autoCount;
   document.getElementById('kpiAutoChange').textContent = autoCount + ' configured';
 }
 
-// ─── RENDER ROOMS ───────────────────────────────────────────
+// ── ROOMS ───────────────────────────────────────────────────
 function renderRooms() {
   const states = Object.values(haStates);
-
-  // Group entities by area if available, otherwise by name patterns
   const areas = {};
   states.forEach(e => {
     const area = e.attributes?.area_id || guessArea(e.entity_id);
@@ -685,14 +850,11 @@ function renderRooms() {
     if (!areas[area]) areas[area] = [];
     areas[area].push(e);
   });
-
   const roomNames = Object.keys(areas).slice(0, 6);
-  if (roomNames.length === 0) {
-    document.getElementById('roomGrid').innerHTML =
-      '<div style="grid-column:1/-1;text-align:center;padding:var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm);">No area-assigned entities found. Assign areas in HA Settings.</div>';
+  if (!roomNames.length) {
+    document.getElementById('roomGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm);">No area-assigned entities found. Assign areas in HA Settings.</div>';
     return;
   }
-
   document.getElementById('roomGrid').innerHTML = roomNames.map((area, i) => {
     const entities = areas[area];
     const temp = entities.find(e => e.entity_id.includes('temperature') && !isNaN(parseFloat(e.state)));
@@ -702,158 +864,250 @@ function renderRooms() {
     return `<div class="room-tile ${i===0?'active-room':''}">
       <div class="room-name">${name}</div>
       <div class="room-stat">${temp ? Math.round(parseFloat(temp.state)) + (temp.attributes.unit_of_measurement || '°') : '—'}</div>
-      <div class="room-sub">${motion ? '🟢 Motion' : 'No motion'} · ${lights} light${lights!==1?'s':''} on</div>
+      <div class="room-sub">${motion ? '● Motion' : 'No motion'} · ${lights} light${lights!==1?'s':''} on</div>
     </div>`;
   }).join('');
 }
 
 function guessArea(entity_id) {
-  const rooms = ['living_room','kitchen','bedroom','bathroom','garage','office','basement','upstairs','downstairs','hallway','laundry','dining'];
+  const rooms = ['living_room','kitchen','bedroom','bathroom','garage','office','basement','upstairs','downstairs','hallway','laundry','dining','nursery','playroom'];
   return rooms.find(r => entity_id.includes(r)) || null;
 }
 
-// ─── RENDER ATTENTION ───────────────────────────────────────
+// ── ATTENTION CENTER ────────────────────────────────────────
 function renderAttention() {
   const states = Object.values(haStates);
   const items = [];
 
-  // Low battery devices
   states.filter(e => e.entity_id.includes('battery') && parseFloat(e.state) < 20 && !isNaN(parseFloat(e.state)))
     .forEach(e => items.push({ dot: 'dot-red', title: 'Low battery: ' + friendlyName(e), desc: e.state + '% — replace soon' }));
 
-  // Unavailable devices
   const unavail = states.filter(e => e.state === 'unavailable');
-  if (unavail.length > 0)
-    items.push({ dot: 'dot-orange', title: unavail.length + ' device' + (unavail.length>1?'s':'')+' unavailable', desc: unavail.slice(0,3).map(e=>friendlyName(e)).join(', ') });
+  if (unavail.length) items.push({ dot: 'dot-orange', title: unavail.length + ' device' + (unavail.length > 1 ? 's' : '') + ' unavailable', desc: unavail.slice(0,3).map(e => friendlyName(e)).join(', ') + (unavail.length > 3 ? ' +' + (unavail.length-3) + ' more' : '') });
 
-  // Open doors/windows
-  const open = states.filter(e => (e.entity_id.includes('door')||e.entity_id.includes('window')) && e.state==='on');
-  if (open.length > 0)
-    items.push({ dot: 'dot-yellow', title: open.length + ' door/window open', desc: open.map(e=>friendlyName(e)).join(', ') });
+  const open = states.filter(e => (e.entity_id.includes('door') || e.entity_id.includes('window')) && e.state === 'on');
+  if (open.length) items.push({ dot: 'dot-yellow', title: open.length + ' door/window open', desc: open.map(e => friendlyName(e)).join(', ') });
 
-  // High CO2
   states.filter(e => e.entity_id.includes('co2') && parseFloat(e.state) > 1000)
     .forEach(e => items.push({ dot: 'dot-orange', title: 'High CO₂: ' + friendlyName(e), desc: e.state + ' ppm — ventilate the room' }));
 
-  document.getElementById('attentionBadge').textContent = items.length;
-  document.getElementById('attentionList').innerHTML = items.length === 0
-    ? '<div class="attention-item"><div class="attention-dot dot-blue"></div><div><div class="attention-title">All clear ✓</div><div class="attention-desc">No issues detected in your home.</div></div></div>'
-    : items.map(it => `<div class="attention-item">
-        <div class="attention-dot ${it.dot}"></div>
-        <div><div class="attention-title">${it.title}</div><div class="attention-desc">${it.desc}</div></div>
-      </div>`).join('');
+  const badge = document.getElementById('attentionBadge');
+  badge.textContent = items.length;
+  badge.className = 'nav-badge warn' + (items.length ? ' visible' : '');
+
+  document.getElementById('attentionList').innerHTML = !items.length
+    ? `<div class="attention-item"><div class="attention-dot dot-green"></div><div><div class="attention-title">All clear ✓</div><div class="attention-desc">No issues detected in your home.</div></div></div>`
+    : items.map(it => `<div class="attention-item"><div class="attention-dot ${it.dot}"></div><div><div class="attention-title">${it.title}</div><div class="attention-desc">${it.desc}</div></div></div>`).join('');
 }
 
 function friendlyName(entity) {
   return entity.attributes?.friendly_name || entity.entity_id.split('.')[1].replace(/_/g,' ');
 }
 
-// ─── RENDER TIMELINE ────────────────────────────────────────
+// ── TIMELINE ────────────────────────────────────────────────
 function renderTimeline(events) {
-  if (!events || events.length === 0) {
-    document.getElementById('timeline').innerHTML =
-      '<div class="empty-timeline"><i data-lucide="clock" width="32" height="32"></i><p style="margin-top:var(--space-3)">No events found for today yet.</p></div>';
-    lucide.createIcons();
+  allEvents = events || [];
+  if (!allEvents.length) {
+    document.getElementById('timeline').innerHTML = `<div class="empty-timeline"><svg class="empty-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><p style="margin-top:var(--space-3);">No events found for this period.</p></div>`;
+    document.getElementById('eventCount').textContent = '0 events';
     return;
   }
+  applyTimelineFilters();
+}
 
-  // Sort newest first
-  const sorted = [...events].sort((a,b) => new Date(b.when||b.last_changed||0) - new Date(a.when||a.last_changed||0));
+function applyTimelineFilters() {
+  const search = (document.getElementById('tlSearch').value || '').toLowerCase();
+  const tab = activeTab;
 
-  const html = sorted.slice(0, 50).map(ev => {
-    const time = new Date(ev.when || ev.last_changed || Date.now());
-    const timeStr = time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-    const name = ev.name || ev.attributes?.friendly_name || ev.entity_id || 'Unknown entity';
-    const state = ev.state || ev.message || '';
+  const filtered = allEvents.filter(ev => {
+    const name = (ev.name || ev.attributes?.friendly_name || ev.entity_id || '').toLowerCase();
+    const state = (ev.state || ev.message || '').toLowerCase();
     const domain = (ev.entity_id || '').split('.')[0];
-    const iconClass = getIconClass(domain, state);
-    const icon = getIcon(domain);
-    const tag = ev.context_user_id ? 'tag-manual' : 'tag-auto';
-    const tagLabel = ev.context_user_id ? 'Manual' : 'Automation';
+    const isAuto = !ev.context_user_id;
 
-    return `<div class="event-item" onclick="toggleExpand(this)">
-      <div class="event-icon ${iconClass}"><i data-lucide="${icon}" width="16" height="16"></i></div>
-      <div class="event-body">
-        <div class="event-summary"><strong>${escHtml(name)}</strong> → ${escHtml(state)}</div>
-        <div class="event-meta">
-          <span class="event-time">${timeStr}</span>
-          <span class="event-tag ${tag}">${tagLabel}</span>
-        </div>
-        <div class="event-why">Entity: ${escHtml(ev.entity_id||'—')} · State changed to <strong>${escHtml(state)}</strong> at ${timeStr}</div>
+    if (tab === 'automation' && !isAuto) return false;
+    if (tab === 'manual' && isAuto) return false;
+    if (tab === 'alert') {
+      const alertDomains = ['binary_sensor','alarm_control_panel','lock'];
+      if (!alertDomains.includes(domain) && !name.includes('door') && !name.includes('window') && !name.includes('motion') && !name.includes('smoke') && !name.includes('co2')) return false;
+    }
+    if (search && !name.includes(search) && !state.includes(search) && !(ev.entity_id||'').toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  document.getElementById('eventCount').textContent = filtered.length + ' event' + (filtered.length !== 1 ? 's' : '');
+  const noRes = document.getElementById('noResults');
+
+  if (!filtered.length) {
+    document.getElementById('timeline').innerHTML = '';
+    noRes.classList.add('visible');
+    return;
+  }
+  noRes.classList.remove('visible');
+
+  // Group by date
+  const groups = {};
+  const sorted = [...filtered].sort((a,b) => new Date(b.when||b.last_changed||0) - new Date(a.when||a.last_changed||0));
+  sorted.slice(0, 100).forEach(ev => {
+    const d = new Date(ev.when || ev.last_changed || Date.now());
+    const key = d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(ev);
+  });
+
+  let html = '';
+  Object.entries(groups).forEach(([date, evs]) => {
+    html += `<div class="timeline-group"><div class="timeline-date">${date}</div>`;
+    evs.forEach(ev => { html += buildEventHTML(ev); });
+    html += '</div>';
+  });
+
+  document.getElementById('timeline').innerHTML = html;
+}
+
+function buildEventHTML(ev) {
+  const time = new Date(ev.when || ev.last_changed || Date.now());
+  const timeStr = time.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
+  const name = ev.name || ev.attributes?.friendly_name || ev.entity_id || 'Unknown entity';
+  const state = ev.state || ev.message || '';
+  const domain = (ev.entity_id || '').split('.')[0];
+  const iconClass = getIconClass(domain, state, name);
+  const icon = getIcon(domain);
+  const isAuto = !ev.context_user_id;
+  const tagClass = isAuto ? 'tag-auto' : 'tag-manual';
+  const tagLabel = isAuto ? 'Automation' : 'Manual';
+  const why = buildWhy(ev, domain, state, isAuto, timeStr);
+
+  return `<div class="event-item" onclick="toggleExpand(this)">
+    <div class="event-icon ${iconClass}">${icon}</div>
+    <div class="event-body">
+      <div class="event-summary"><strong>${escHtml(name)}</strong> → <span style="color:var(--color-text-muted)">${escHtml(state)}</span></div>
+      <div class="event-meta">
+        <span class="event-time">${timeStr}</span>
+        <span class="event-tag ${tagClass}">${tagLabel}</span>
       </div>
-    </div>`;
-  }).join('');
+      <div class="event-why">${why}</div>
+    </div>
+  </div>`;
+}
 
-  document.getElementById('timeline').innerHTML = '<div class="timeline-group"><div class="timeline-date">Today</div>' + html + '</div>';
-  lucide.createIcons();
+function buildWhy(ev, domain, state, isAuto, timeStr) {
+  const name = ev.name || ev.attributes?.friendly_name || ev.entity_id || 'this entity';
+  let reason = '';
+
+  if (domain === 'climate') {
+    reason = isAuto
+      ? `<span class="event-why-label">Why this happened</span>An automation adjusted <em>${escHtml(name)}</em> to <strong>${escHtml(state)}</strong> at ${timeStr}, likely due to a scheduled temperature change or presence trigger.`
+      : `<span class="event-why-label">Manual change</span>Someone manually set <em>${escHtml(name)}</em> to <strong>${escHtml(state)}</strong> at ${timeStr}.`;
+  } else if (domain === 'binary_sensor' || ev.entity_id?.includes('door') || ev.entity_id?.includes('window')) {
+    const opened = state === 'on' || state === 'open';
+    reason = `<span class="event-why-label">${opened ? 'Opened' : 'Closed'}</span><em>${escHtml(name)}</em> was ${opened ? 'opened' : 'closed'} at ${timeStr}. ${opened ? 'Check the Attention Center if this is unexpected.' : 'All secure.'}`;
+  } else if (domain === 'light' || domain === 'switch') {
+    reason = isAuto
+      ? `<span class="event-why-label">Automation triggered</span><em>${escHtml(name)}</em> was turned <strong>${escHtml(state)}</strong> automatically at ${timeStr} — likely by a motion sensor, schedule, or scene.`
+      : `<span class="event-why-label">Manual control</span><em>${escHtml(name)}</em> was turned <strong>${escHtml(state)}</strong> manually at ${timeStr}.`;
+  } else if (domain === 'person' || domain === 'device_tracker') {
+    reason = `<span class="event-why-label">Presence change</span><em>${escHtml(name)}</em> is now <strong>${escHtml(state)}</strong>. This may have triggered arrival/departure automations.`;
+  } else if (domain === 'automation') {
+    reason = `<span class="event-why-label">Automation fired</span><em>${escHtml(name)}</em> ran at ${timeStr}. ${isAuto ? 'Triggered automatically by its configured conditions.' : 'Triggered manually.'}`;
+  } else {
+    reason = `<span class="event-why-label">State change</span><em>${escHtml(name)}</em> changed to <strong>${escHtml(state)}</strong> at ${timeStr}. Entity: <code>${escHtml(ev.entity_id||'—')}</code>`;
+  }
+  return reason;
 }
 
 function prependTimelineEvent(data) {
   const tl = document.getElementById('timeline');
   if (tl.querySelector('.empty-timeline')) { fetchLogbook(); return; }
   const grp = tl.querySelector('.timeline-group');
-  if (!grp) return;
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  const name = data.new_state?.attributes?.friendly_name || data.entity_id;
-  const state = data.new_state?.state || '';
-  const domain = data.entity_id.split('.')[0];
+  if (!grp) { fetchLogbook(); return; }
+  const ev = {
+    entity_id: data.entity_id,
+    name: data.new_state?.attributes?.friendly_name || data.entity_id,
+    state: data.new_state?.state || '',
+    when: new Date().toISOString(),
+    context_user_id: data.context?.user_id || null
+  };
+  allEvents.unshift(ev);
+  document.getElementById('eventCount').textContent = allEvents.length + ' event' + (allEvents.length !== 1 ? 's' : '');
   const el = document.createElement('div');
-  el.className = 'event-item';
-  el.onclick = function(){ toggleExpand(this); };
-  el.innerHTML = `
-    <div class="event-icon ${getIconClass(domain, state)}"><i data-lucide="${getIcon(domain)}" width="16" height="16"></i></div>
-    <div class="event-body">
-      <div class="event-summary"><strong>${escHtml(name)}</strong> → ${escHtml(state)}</div>
-      <div class="event-meta"><span class="event-time">${timeStr}</span><span class="event-tag tag-auto">Live</span></div>
-      <div class="event-why">Entity: ${escHtml(data.entity_id)} · Changed to <strong>${escHtml(state)}</strong> just now</div>
-    </div>`;
-  grp.insertBefore(el, grp.querySelector('.event-item'));
-  lucide.createIcons();
+  el.innerHTML = buildEventHTML(ev);
+  const child = el.firstElementChild;
+  child.querySelector('.event-tag')?.classList.replace('tag-auto','tag-live');
+  child.querySelector('.event-tag') && (child.querySelector('.event-tag').textContent = 'Live');
+  grp.insertBefore(child, grp.querySelector('.event-item'));
 }
 
-function getIconClass(domain, state) {
-  if (domain === 'climate' || domain === 'sensor' && state.includes('°')) return 'climate';
-  if (domain === 'binary_sensor' || domain === 'lock' || domain === 'cover') return 'door';
-  if (domain === 'light' || domain === 'switch') return 'light';
+// ── ICON HELPERS ────────────────────────────────────────────
+function getIconClass(domain, state, name='') {
+  const n = name.toLowerCase();
+  if (domain === 'climate' || (domain === 'sensor' && (state.includes('°') || n.includes('temp')))) return 'climate';
+  if (domain === 'binary_sensor' || domain === 'lock' || domain === 'cover' || n.includes('door') || n.includes('window')) return 'door';
+  if (domain === 'light') return 'light';
+  if (domain === 'switch') return 'power';
   if (domain === 'person' || domain === 'device_tracker') return 'motion';
   if (domain === 'alarm_control_panel') return 'security';
   if (domain === 'automation' || domain === 'scene') return 'power';
   return '';
 }
-function getIcon(domain) {
-  const map = { climate:'thermometer-sun', sensor:'activity', binary_sensor:'door-open', lock:'lock', cover:'door-open', light:'sun', switch:'zap', person:'user', device_tracker:'map-pin', alarm_control_panel:'shield', automation:'zap', scene:'sparkles', media_player:'tv' };
-  return map[domain] || 'circle-dot';
-}
+
+const ICONS = {
+  climate: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>',
+  sensor: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+  binary_sensor: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+  lock: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  light: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>',
+  switch: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  person: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  device_tracker: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/></svg>',
+  alarm_control_panel: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  automation: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  default: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+};
+function getIcon(domain) { return ICONS[domain] || ICONS.default; }
 
 function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ─── RESET UI ───────────────────────────────────────────────
+// ── RESET UI ────────────────────────────────────────────────
 function resetUI() {
-  document.getElementById('timeline').innerHTML = '<div class="empty-timeline"><i data-lucide="plug" width="32" height="32"></i><p style="margin-top:var(--space-3)">Connect to Home Assistant to see your live timeline</p><button class="btn-xs btn-accept" style="margin-top:var(--space-4)" onclick="openModal()">Connect now</button></div>';
-  document.getElementById('kpiAutomations').innerHTML = '<div class="skeleton skeleton-value"></div>';
-  document.getElementById('kpiTemp').innerHTML = '<div class="skeleton skeleton-value"></div>';
-  document.getElementById('kpiDoors').innerHTML = '<div class="skeleton skeleton-value"></div>';
-  document.getElementById('kpiEntities').innerHTML = '<div class="skeleton skeleton-value"></div>';
-  lucide.createIcons();
+  document.getElementById('timeline').innerHTML = `<div class="empty-timeline"><svg class="empty-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><p style="margin-top:var(--space-3);">Connect to Home Assistant to see your live timeline</p><button class="btn-xs btn-accept" style="margin-top:var(--space-4);" onclick="openModal()">Connect now</button></div>`;
+  ['kpiAutomations','kpiTemp','kpiDoors','kpiEntities'].forEach(id => {
+    document.getElementById(id).innerHTML = '<div class="skeleton skeleton-value"></div>';
+  });
+  document.getElementById('eventCount').textContent = '0 events';
 }
 
-// ─── UI HELPERS ─────────────────────────────────────────────
+// ── UI HELPERS ───────────────────────────────────────────────
 function refreshTimeline() { if (haWs && haWs.readyState === 1) fetchLogbook(); }
 function toggleExpand(el) { el.classList.toggle('expanded'); }
 function switchTab(btn, tab) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active'); activeTab = tab;
+  applyTimelineFilters();
 }
 function setFilter(btn, period) {
   document.querySelectorAll('.time-filter button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active'); activeFilter = period;
   if (haWs && haWs.readyState === 1) fetchLogbook();
 }
-function acceptCoach(btn) { const i = btn.closest('.coach-item'); i.style.opacity='0.4'; i.style.pointerEvents='none'; btn.textContent='✓ Added'; }
-function dismissCoach(btn) { btn.closest('.coach-item').remove(); }
+function filterTimeline() { applyTimelineFilters(); }
+function globalSearchFilter(val) {
+  document.getElementById('tlSearch').value = val;
+  applyTimelineFilters();
+}
+function acceptCoach(btn) {
+  const i = btn.closest('.coach-item');
+  btn.textContent = '✓ Added'; btn.disabled = true;
+  i.style.opacity = '0.45'; i.style.pointerEvents = 'none';
+}
+function dismissCoach(btn) {
+  const i = btn.closest('.coach-item');
+  i.style.opacity = '0'; i.style.height = i.offsetHeight + 'px';
+  requestAnimationFrame(() => { i.style.transition = 'opacity 0.2s, height 0.3s, padding 0.3s'; i.style.height = '0'; i.style.padding = '0'; i.style.overflow = 'hidden'; });
+  setTimeout(() => i.remove(), 350);
+}
 function showModalError(msg) {
   const e = document.getElementById('modalError');
   e.textContent = msg; e.classList.add('show');
@@ -862,12 +1116,11 @@ function showModalError(msg) {
 }
 function openModal() {
   document.getElementById('modal').classList.add('open');
-  // Pre-fill URL if known
   if (haUrl) document.getElementById('haUrl').value = haUrl;
 }
 function closeModal() { document.getElementById('modal').classList.remove('open'); }
 function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeSidebar(); } });
 </script>
 </body>
 </html>
